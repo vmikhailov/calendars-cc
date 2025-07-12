@@ -49,7 +49,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 flex">
       <Navigation activeSection={activeSection} onSectionChange={setActiveSection} />
       
-      <main className="flex-1 p-8">
+      <main className={`flex-1 ${activeSection === 'logs' ? 'p-8 flex flex-col' : 'p-8'}`}>
         {renderContent()}
       </main>
     </div>

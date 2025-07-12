@@ -135,14 +135,16 @@ const SyncLogs: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Sync Logs</h1>
-        <p className="text-gray-600">Monitor synchronization activity and troubleshoot issues</p>
-      </div>
-
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+    <div className="h-full flex flex-col">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-full">
         <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">Sync Logs</h1>
+              <p className="text-gray-600">Monitor synchronization activity and troubleshoot issues</p>
+            </div>
+          </div>
+          
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Activity Log</h2>
             
@@ -189,7 +191,7 @@ const SyncLogs: React.FC = () => {
           </div>
         </div>
         
-        <div className="max-h-[600px] overflow-y-auto">
+        <div className="flex-1 overflow-y-auto">
           <div className="space-y-3 p-6">
             {filteredLogs.map((log) => (
               <div
@@ -242,7 +244,7 @@ const SyncLogs: React.FC = () => {
         </div>
         
         {filteredLogs.length === 0 && !loading && (
-          <div className="text-center py-12">
+          <div className="flex-1 flex items-center justify-center">
             <RefreshCw className="h-8 w-8 text-gray-300 mx-auto mb-2" />
             <p className="text-gray-500 text-sm">No logs to display</p>
           </div>
