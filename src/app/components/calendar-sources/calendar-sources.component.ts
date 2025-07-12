@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Calendar, Clock, CheckCircle, AlertCircle } from 'lucide-angular';
 import { LucideAngularModule } from 'lucide-angular';
 import { CalendarSource } from '../../models/rule.model';
 
 @Component({
   selector: 'app-calendar-sources',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, Calendar, Clock, CheckCircle, AlertCircle],
   template: `
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-semibold text-gray-900">Calendar Sources</h2>
-        <button 
+          <lucide-icon name="calendar" class="w-6 h-6 text-blue-600"></lucide-icon>
           (click)="showAddModal = true"
           class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
@@ -60,7 +61,7 @@ import { CalendarSource } from '../../models/rule.model';
       <div *ngIf="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">Add Calendar Source</h3>
-          
+              <lucide-icon name="calendar" class="w-5 h-5 text-blue-600"></lucide-icon>
           <div class="space-y-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Calendar Provider</label>
@@ -72,13 +73,13 @@ import { CalendarSource } from '../../models/rule.model';
                   <lucide-icon [name]="provider.icon" class="h-5 w-5 text-gray-600"></lucide-icon>
                   <span class="font-medium text-gray-900">{{ provider.name }}</span>
                 </button>
-              </div>
-            </div>
-          </div>
+              <lucide-icon *ngIf="source.status === 'connected'" name="check-circle" class="w-5 h-5 text-green-500"></lucide-icon>
+              <lucide-icon *ngIf="source.status === 'error'" name="alert-circle" class="w-5 h-5 text-red-500"></lucide-icon>
+              <lucide-icon *ngIf="source.status === 'syncing'" name="clock" class="w-5 h-5 text-blue-500"></lucide-icon>
           
           <div class="flex justify-end space-x-3 mt-6">
             <button 
-              (click)="showAddModal = false"
+              <lucide-icon name="clock" class="w-4 h-4 text-gray-400"></lucide-icon>
               class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
             >
               Cancel
