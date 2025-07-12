@@ -17,22 +17,28 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
       </div>
 
       <!-- Tab Navigation -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
-        <div class="border-b border-gray-200">
-          <nav class="flex space-x-8 px-6">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl font-semibold text-gray-900">Billing & Subscription</h2>
+            <div class="text-sm text-gray-500 mt-1">
+              Manage your plan and payment information
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
             <button
               *ngFor="let tab of tabs"
               (click)="setActiveTab(tab.id)"
               [class]="getTabClass(tab.id)"
             >
-              <lucide-icon [name]="tab.icon" class="h-4 w-4 mr-2"></lucide-icon>
               {{ tab.label }}
             </button>
-          </nav>
+          </div>
         </div>
 
         <!-- Tab Content -->
-        <div class="p-6">
+        <div>
           <!-- Overview Tab -->
           <div *ngIf="activeTab === 'overview'">
             <!-- Current Plan -->
@@ -354,16 +360,16 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   tabs = [
-    { id: 'overview' as const, label: 'Overview', icon: 'credit-card' },
-    { id: 'plans' as const, label: 'Change Plan', icon: 'package' },
-    { id: 'history' as const, label: 'Billing History', icon: 'file-text' }
+    { id: 'overview' as const, label: 'Overview' },
+    { id: 'plans' as const, label: 'Plans' },
+    { id: 'history' as const, label: 'History' }
   ];
 
   getTabClass(tabId: string): string {
-    const baseClass = 'flex items-center py-4 px-1 border-b-2 font-medium text-sm transition-colors';
+    const baseClass = 'px-3 py-1 text-sm rounded transition-all';
     return this.activeTab === tabId
-      ? `${baseClass} border-blue-500 text-blue-600`
-      : `${baseClass} border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300`;
+      ? `${baseClass} bg-white shadow text-gray-900`
+      : `${baseClass} text-gray-600 hover:text-gray-900`;
   }
 
   getPlanCardClass(plan: BillingPlan): string {
