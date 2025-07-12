@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Calendar, Clock, CheckCircle, AlertCircle } from 'lucide-angular';
 import { LucideAngularModule } from 'lucide-angular';
 import { CalendarSource } from '../../models/rule.model';
 
 @Component({
   selector: 'app-calendar-sources',
   standalone: true,
-  imports: [CommonModule, Calendar, Clock, CheckCircle, AlertCircle],
+  imports: [CommonModule, LucideAngularModule],
   template: `
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <div class="flex items-center justify-between mb-6">
