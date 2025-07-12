@@ -15,24 +15,7 @@ interface Stat {
   selector: 'app-stats-cards',
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
-  template: `
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div
-        *ngFor="let stat of stats"
-        class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 card-hover"
-      >
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm text-gray-500 mb-1">{{ stat.title }}</p>
-            <p class="text-2xl font-bold text-gray-900">{{ stat.value }}</p>
-          </div>
-          <div [class]="'p-3 rounded-lg ' + stat.bgColor">
-            <lucide-icon [name]="stat.icon" [class]="'h-6 w-6 ' + stat.textColor"></lucide-icon>
-          </div>
-        </div>
-      </div>
-    </div>
-  `
+  templateUrl: './stats-cards.component.html'
 })
 export class StatsCardsComponent {
   stats: Stat[] = [

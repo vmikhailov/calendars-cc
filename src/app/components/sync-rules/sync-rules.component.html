@@ -1,0 +1,116 @@
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold text-gray-900">Sync Rules</h2>
+    <button 
+      (click)="showAddModal = true"
+      class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+    >
+      <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+      <span>Add Rule</span>
+    </button>
+  </div>
+  
+  <div class="space-y-4 flex-1 overflow-y-auto">
+    <div
+      *ngFor="let rule of syncRules"
+      class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all card-hover"
+    >
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center space-x-3">
+          <div [class]="'status-dot ' + getStatusColor(rule.status) + (rule.status === 'active' ? ' pulse-success' : '')"></div>
+          <h3 class="font-medium text-gray-900">{{ rule.name }}</h3>
+        </div>
+        
+        <div class="flex items-center space-x-2">
+          <button class="p-1 text-gray-400 hover:text-blue-600 transition-colors">
+            <lucide-icon 
+              [name]="rule.status === 'active' ? 'pause' : 'play'" 
+              class="h-4 w-4"
+            ></lucide-icon>
+          </button>
+          <button class="p-1 text-gray-400 hover:text-gray-600 transition-colors">
+            <lucide-icon name="settings" class="h-4 w-4"></lucide-icon>
+          </button>
+          <button class="p-1 text-gray-400 hover:text-red-600 transition-colors">
+            <lucide-icon name="trash-2" class="h-4 w-4"></lucide-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-2 text-sm text-gray-600 mb-2">
+        <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">{{ rule.source }}</span>
+        <lucide-icon name="arrow-right" class="h-4 w-4 text-gray-400"></lucide-icon>
+        <span class="bg-green-50 text-green-700 px-2 py-1 rounded">{{ rule.target }}</span>
+      </div>
+      
+      <div class="flex items-center justify-between text-xs text-gray-500">
+        <div class="flex items-center space-x-4">
+          <span>Status: <span class="font-medium">{{ getStatusText(rule.status) }}</span></span>
+          <span>Frequency: {{ rule.frequency }}</span>
+        </div>
+        <span>Last sync: {{ rule.lastSync }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Modal -->
+  <div *ngIf="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">New Sync Rule</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Rule Name</label>
+          <input 
+            type="text" 
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="e.g., Work → Personal"
+          />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Source Calendar</label>
+          <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option>Google Calendar (Work)</option>
+            <option>Outlook (Personal)</option>
+            <option>Apple Calendar</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Target Calendar</label>
+          <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option>Outlook (Main)</option>
+            <option>Google Calendar (Shared)</option>
+            <option>Apple Calendar</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Sync Frequency</label>
+          <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option>Every 15 minutes</option>
+            <option>Every 30 minutes</option>
+            <option>Every hour</option>
+            <option>Every 6 hours</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="flex justify-end space-x-3 mt-6">
+        <button 
+          (click)="showAddModal = false"
+          class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          Cancel
+        </button>
+        <button 
+          (click)="showAddModal = false"
+          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Create Rule
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<nav class="bg-white border-r border-gray-200 w-64 min-h-screen">
+  <div class="p-6">
+    <div class="flex items-center space-x-3 mb-8">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
+        <lucide-icon name="calendar" class="h-6 w-6 text-white"></lucide-icon>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold text-gray-900">CalendarSync</h1>
+        <p class="text-sm text-gray-500">Calendar Synchronization</p>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <button
+        *ngFor="let item of menuItems"
+        (click)="onSectionChange(item.id)"
+        [class]="getButtonClass(item.id)"
+      >
+        <lucide-icon 
+          [name]="item.icon" 
+          [class]="getIconClass(item.id)"
+        ></lucide-icon>
+        <div class="flex-1 min-w-0">
+          <div class="font-medium">{{ item.label }}</div>
+          <div class="text-xs text-gray-500 mt-0.5 truncate">
+            {{ item.description }}
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</nav>
