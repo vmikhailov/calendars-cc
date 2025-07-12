@@ -290,7 +290,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     { value: 'light', label: 'Light', icon: 'sun' },
     { value: 'dark', label: 'Dark', icon: 'moon' },
     { value: 'auto', label: 'Auto', icon: 'monitor' }
-  ];
+  ] as const;
 
   constructor(private userService: UserService) {}
 
