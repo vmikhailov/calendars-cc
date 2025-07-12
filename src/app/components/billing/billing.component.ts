@@ -27,7 +27,7 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
               <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium">Current</span>
             </div>
             <p class="text-gray-600 mt-1">
-              ${{ currentPlan.price }}/{{ currentPlan.interval }}
+              &#36;{{ currentPlan.price }}/{{ currentPlan.interval }}
             </p>
           </div>
           
@@ -68,7 +68,7 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
                 <div class="p-6">
                   <h4 class="text-xl font-bold text-gray-900 mb-2">{{ plan.name }}</h4>
                   <div class="mb-4">
-                    <span class="text-3xl font-bold text-gray-900">\${{ plan.price }}</span>
+                    <span class="text-3xl font-bold text-gray-900">&#36;{{ plan.price }}</span>
                     <span class="text-gray-600">/{{ plan.interval }}</span>
                   </div>
                   
@@ -157,7 +157,7 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
             >
               <div>
                 <div class="font-medium text-gray-900">{{ formatInvoiceDate(invoice.date) }}</div>
-                <div class="text-sm text-gray-500">\${{ invoice.amount.toFixed(2) }}</div>
+                <div class="text-sm text-gray-500">&#36;{{ invoice.amount.toFixed(2) }}</div>
               </div>
               
               <div class="flex items-center space-x-3">
