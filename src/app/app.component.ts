@@ -5,6 +5,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SyncLogsComponent } from './components/sync-logs/sync-logs.component';
 import { RulesComponent } from './components/rules/rules.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { BillingComponent } from './components/billing/billing.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { NavigationService } from './services/navigation.service';
 
 @Component({
@@ -16,7 +19,10 @@ import { NavigationService } from './services/navigation.service';
     NavigationComponent, 
     DashboardComponent, 
     SyncLogsComponent,
-    RulesComponent
+    RulesComponent,
+    ProfileComponent,
+    BillingComponent,
+    SettingsComponent
   ],
   template: `
     <div class="min-h-screen bg-gray-50 flex">
@@ -27,24 +33,15 @@ import { NavigationService } from './services/navigation.service';
           <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>
           <app-sync-logs *ngSwitchCase="'logs'"></app-sync-logs>
           <app-rules *ngSwitchCase="'rules'"></app-rules>
+          <app-profile *ngSwitchCase="'profile'"></app-profile>
+          <app-billing *ngSwitchCase="'billing'"></app-billing>
+          <app-settings *ngSwitchCase="'settings'"></app-settings>
           
-          <!-- Placeholder components for other sections -->
-          <div *ngSwitchCase="'profile'" class="text-center py-12">
-            <lucide-icon name="user" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Profile</h3>
-            <p class="text-gray-600">Profile component coming soon</p>
-          </div>
-          
-          <div *ngSwitchCase="'billing'" class="text-center py-12">
-            <lucide-icon name="credit-card" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Billing</h3>
-            <p class="text-gray-600">Billing component coming soon</p>
-          </div>
-          
-          <div *ngSwitchCase="'settings'" class="text-center py-12">
-            <lucide-icon name="settings" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Settings</h3>
-            <p class="text-gray-600">Settings component coming soon</p>
+          <!-- Default case for unknown sections -->
+          <div *ngSwitchDefault class="text-center py-12">
+            <lucide-icon name="alert-circle" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Page Not Found</h3>
+            <p class="text-gray-600">The requested section could not be found</p>
           </div>
         </ng-container>
       </main>

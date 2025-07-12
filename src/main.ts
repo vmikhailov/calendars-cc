@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Code, Plus, ArrowRight, Trash2, Play, Pause, Clock, MapPin, Users, CheckCircle, XCircle, AlertTriangle, RefreshCw, Filter, Loader, Save, Copy } from 'lucide-angular';
+import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Code, Plus, ArrowRight, Trash2, Play, Pause, Clock, MapPin, Users, CheckCircle, XCircle, AlertTriangle, RefreshCw, Filter, Loader, Save, Copy, Upload, Edit, Download, Check, X, Sun, Moon, Monitor, AlertCircle } from 'lucide-angular';
 
 // Configure Monaco Editor environment
 (self as any).MonacoEnvironment = {
@@ -47,7 +47,16 @@ bootstrapApplication(AppComponent, {
         Filter,
         Loader,
         Save,
-        Copy
+        Copy,
+        Upload,
+        Edit,
+        Download,
+        Check,
+        X,
+        Sun,
+        Moon,
+        Monitor,
+        AlertCircle
       })
     )
   ]
