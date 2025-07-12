@@ -12,9 +12,9 @@ import { Rule } from '../../models/rule.model';
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule, MonacoEditorModule],
   template: `
-    <div class="h-full flex">
+    <div class="flex h-screen">
       <!-- Rules List Sidebar -->
-      <div class="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div class="w-80 bg-white border-r border-gray-200 flex flex-col h-full">
         <div class="p-6 border-b border-gray-200">
           <div class="flex items-center justify-between mb-4">
             <div>
@@ -30,7 +30,7 @@ import { Rule } from '../../models/rule.model';
           </div>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-4 space-y-3">
+        <div class="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
           <div
             *ngFor="let rule of rules"
             (click)="selectRule(rule)"
@@ -82,7 +82,7 @@ import { Rule } from '../../models/rule.model';
       </div>
 
       <!-- Editor Area -->
-      <div class="flex-1 flex flex-col">
+      <div class="flex-1 flex flex-col h-full min-w-0">
         <div *ngIf="selectedRule; else noRuleSelected">
           <!-- Editor Header -->
           <div class="bg-white border-b border-gray-200 p-6">
@@ -111,9 +111,9 @@ import { Rule } from '../../models/rule.model';
           </div>
 
           <!-- Monaco Editor -->
-          <div class="flex-1 bg-gray-50">
+          <div class="flex-1 bg-gray-50 min-h-0">
             <ngx-monaco-editor
-              class="w-full h-full"
+              class="w-full h-full block"
               [(ngModel)]="editorContent"
               [options]="editorOptions"
               (onInit)="onEditorInit($event)"
