@@ -7,8 +7,6 @@ interface Stat {
   value: string;
   icon: string;
   color: string;
-  bgColor: string;
-  textColor: string;
 }
 
 @Component({
@@ -23,33 +21,25 @@ export class StatsCardsComponent {
       title: 'Active Rules',
       value: '2',
       icon: 'refresh-cw',
-      color: 'bg-blue-500',
-      bgColor: 'bg-blue-50',
-      textColor: 'text-blue-700'
+      color: 'primary'
     },
     {
       title: 'Events Synced Today',
       value: '27',
       icon: 'calendar',
-      color: 'bg-green-500',
-      bgColor: 'bg-green-50',
-      textColor: 'text-green-700'
+      color: 'success'
     },
     {
       title: 'Success Rate',
       value: '98%',
       icon: 'check-circle',
-      color: 'bg-purple-500',
-      bgColor: 'bg-purple-50',
-      textColor: 'text-purple-700'
+      color: 'info'
     },
     {
       title: 'Need Attention',
       value: '1',
       icon: 'alert-triangle',
-      color: 'bg-yellow-500',
-      bgColor: 'bg-yellow-50',
-      textColor: 'text-yellow-700'
+      color: 'warning'
     }
   ];
 }

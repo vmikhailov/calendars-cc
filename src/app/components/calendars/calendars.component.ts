@@ -65,10 +65,10 @@ export class CalendarsComponent {
 
   getStatusBadgeClass(status: string): string {
     switch (status) {
-      case 'connected': return 'bg-green-100 text-green-800';
-      case 'disconnected': return 'bg-gray-100 text-gray-800';
-      case 'error': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'connected': return 'bg-success-100 text-success-800';
+      case 'disconnected': return 'bg-secondary-100 text-secondary-800';
+      case 'error': return 'bg-danger-100 text-danger-800';
+      default: return 'bg-secondary-100 text-secondary-800';
     }
   }
 

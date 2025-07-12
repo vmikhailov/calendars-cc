@@ -2,21 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import theme system */
+@import './styles/themes.css';
+@import './styles/utilities.css';
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-text);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer components {
-  .gradient-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  }
-  
   .card-hover {
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
@@ -27,6 +28,10 @@
   
   .sync-animation {
     animation: spin 2s linear infinite;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary-700) 100%);
   }
 }
 
@@ -45,8 +50,7 @@
 
 .rule-code-editor {
   .editor-container {
-    /*height: calc(100vh - 10px);*/
     height: calc(1000px);
-    background-color: #667eea;
+    background-color: var(--color-primary);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Code } from 'lucide-angular';
+import { ThemeService } from './services/theme.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SyncLogsComponent } from './components/sync-logs/sync-logs.component';
@@ -54,7 +55,10 @@ import { NavigationService } from './services/navigation.service';
 export class AppComponent implements OnInit {
   activeSection = 'dashboard';
 
-  constructor(private navigationService: NavigationService) {}
+  constructor(
+    private navigationService: NavigationService,
+    private themeService: ThemeService
+  ) {}
 
   ngOnInit(): void {
     this.navigationService.activeSection$.subscribe(section => {

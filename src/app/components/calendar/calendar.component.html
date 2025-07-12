@@ -1,13 +1,13 @@
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full">
   <div class="flex items-center justify-between mb-6">
     <div>
-      <h2 class="text-xl font-semibold text-gray-900">{{ getViewTitle() }}</h2>
-      <div class="text-sm text-gray-500 mt-1">
+      <h2 class="text-xl font-semibold text-default">{{ getViewTitle() }}</h2>
+      <div class="text-sm text-muted mt-1">
         {{ getViewDate() }}
       </div>
     </div>
 
-    <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+    <div class="flex items-center space-x-1 bg-secondary-100 rounded-lg p-1">
       <button
         *ngFor="let view of views"
         (click)="setActiveView(view.id)"
@@ -21,21 +21,21 @@
   <div class="space-y-4 flex-1 overflow-y-auto">
     <div
       *ngFor="let event of getEventsForView()"
-      class="flex items-start space-x-4 p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors card-hover"
+      class="flex items-start space-x-4 p-4 border border-light rounded-lg hover:bg-secondary-50 transition-colors card-hover"
     >
       <div [class]="'w-1 h-16 rounded-full ' + event.color"></div>
 
       <div class="flex-1 min-w-0">
         <div class="flex items-center justify-between mb-2">
-          <h3 class="text-sm font-medium text-gray-900 truncate">
+          <h3 class="text-sm font-medium text-default truncate">
             {{ event.title }}
           </h3>
-          <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+          <span class="text-xs text-muted bg-secondary-100 px-2 py-1 rounded-full">
             {{ event.calendar }}
           </span>
         </div>
 
-        <div class="flex items-center space-x-4 text-sm text-gray-500">
+        <div class="flex items-center space-x-4 text-sm text-muted">
           <div class="flex items-center space-x-1">
             <lucide-icon name="clock" class="h-4 w-4"></lucide-icon>
             <span>{{ event.time }}</span>
@@ -56,7 +56,7 @@
   </div>
 
   <div *ngIf="getEventsForView().length === 0" class="text-center py-12">
-    <lucide-icon name="calendar" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
-    <p class="text-gray-500">No events for {{ getViewTitle().toLowerCase() }}</p>
+    <lucide-icon name="calendar" class="h-12 w-12 text-light mx-auto mb-4"></lucide-icon>
+    <p class="text-muted">No events for {{ getViewTitle().toLowerCase() }}</p>
   </div>
 </div>
