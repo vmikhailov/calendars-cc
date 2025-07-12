@@ -1,5 +1,5 @@
 import React from 'react';
-import {User, CreditCard, Settings, Calendar, FileText} from 'lucide-react';
+import {Calendar} from 'lucide-react';
 import {menuItems} from './menuItems';
 
 interface NavigationProps {
