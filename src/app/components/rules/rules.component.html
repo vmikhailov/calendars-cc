@@ -1,7 +1,7 @@
 <div class="flex h-screen">
     <!-- Rules List Sidebar -->
     <div class="w-80 bg-white rounded-l-xl border border-gray-200 flex flex-col h-full">
-        <div class="p-6 border-b border-gray-200">
+        <div class="p-6 border-b border-gray-200 h-[120px] flex flex-col justify-center">
             <div class="flex items-center justify-between mb-4">
                 <div>
                     <h1 class="text-xl font-bold text-gray-900">Rules</h1>
@@ -71,7 +71,7 @@
     <div class="flex-1 flex flex-col h-full min-w-0 bg-white rounded-r-xl border-t border-r border-b border-gray-200">
         <div *ngIf="selectedRule; else noRuleSelected">
             <!-- Editor Header -->
-            <div class="bg-white border-b border-gray-200 p-6 rounded-tr-xl">
+            <div class="bg-white border-b border-gray-200 p-6 rounded-tr-xl h-[120px] flex flex-col justify-center">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-lg font-semibold text-gray-900">{{ selectedRule.name }}</h2>
