@@ -26,17 +26,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/monaco-editor/min/vs",
-                "output": "/assets/monaco-editor/min/vs/"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/monaco-editor/esm/vs/base/browser/ui/codicons",
-                "output": "/assets/monaco-editor/codicons/"
-              }
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"

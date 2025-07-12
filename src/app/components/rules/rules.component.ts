@@ -186,15 +186,28 @@ import { Rule } from '../../models/rule.model';
   `
 })
 export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
-
   private destroy$ = new Subject<void>();
-  private editor?: monaco.editor.IStandaloneCodeEditor;
 
   rules: Rule[] = [];
   selectedRule: Rule | null = null;
   isEditing = false;
   showNewRuleModal = false;
+  editorContent = '';
+  
+  editorOptions = {
+    theme: 'vs-light',
+    language: 'javascript',
+    readOnly: false,
+    minimap: { enabled: false },
+    fontSize: 14,
+    lineNumbers: 'on',
+    roundedSelection: false,
+    scrollBeyondLastLine: false,
+    automaticLayout: true,
+    wordWrap: 'on',
+    tabSize: 2,
+    insertSpaces: true,
+  };
 
   newRule = {
     name: '',
@@ -220,75 +233,58 @@ export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initializeEditor();
+    // No longer needed with ngx-monaco-editor-v2
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    if (this.editor) {
-      this.editor.dispose();
+  }
+
+  private updateEditorContent(): void {
+    if (this.selectedRule) {
+      this.editorContent = this.selectedRule.code;
     }
   }
 
-  private initializeEditor(): void {
-    if (this.editorContainer) {
-      this.editor = monaco.editor.create(this.editorContainer.nativeElement, {
-        value: this.selectedRule?.code || '',
-        language: 'javascript',
-        theme: 'vs-light',
-        readOnly: !this.isEditing,
-        minimap: { enabled: false },
-        fontSize: 14,
-        lineNumbers: 'on',
-        roundedSelection: false,
-        scrollBeyondLastLine: false,
-        automaticLayout: true,
-        wordWrap: 'on',
-        tabSize: 2,
-        insertSpaces: true,
-      });
-    }
+  private updateEditorOptions(): void {
+    this.editorOptions = {
+      ...this.editorOptions,
+      readOnly: !this.isEditing
+    };
   }
 
-  private updateEditor(): void {
-    if (this.editor && this.selectedRule) {
-      this.editor.setValue(this.selectedRule.code);
-      this.editor.updateOptions({ readOnly: !this.isEditing });
-    }
+  onEditorContentChange(content: string): void {
+    this.editorContent = content;
   }
 
   selectRule(rule: Rule): void {
     this.rulesService.selectRule(rule);
     this.isEditing = false;
+    this.updateEditorContent();
+    this.updateEditorOptions();
   }
 
   startEdit(): void {
     this.isEditing = true;
-    if (this.editor) {
-      this.editor.updateOptions({ readOnly: false });
-    }
+    this.updateEditorOptions();
   }
 
   cancelEdit(): void {
     this.isEditing = false;
-    if (this.editor && this.selectedRule) {
-      this.editor.setValue(this.selectedRule.code);
-      this.editor.updateOptions({ readOnly: true });
-    }
+    this.updateEditorContent();
+    this.updateEditorOptions();
   }
 
   saveRule(): void {
-    if (this.selectedRule && this.editor) {
+    if (this.selectedRule) {
       const updatedRule: Rule = {
         ...this.selectedRule,
-        code: this.editor.getValue()
+        code: this.editorContent
       };
       this.rulesService.updateRule(updatedRule);
       this.isEditing = false;
-      if (this.editor) {
-        this.editor.updateOptions({ readOnly: true });
-      }
+      this.updateEditorOptions();
     }
   }
 
