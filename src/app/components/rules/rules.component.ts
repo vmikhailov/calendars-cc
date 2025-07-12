@@ -2,15 +2,15 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } fr
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { Subject, takeUntil } from 'rxjs';
-import * as monaco from 'monaco-editor';
 import { RulesService } from '../../services/rules.service';
 import { Rule } from '../../models/rule.model';
 
 @Component({
   selector: 'app-rules',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule, MonacoEditorModule],
   template: `
     <div class="h-full flex">
       <!-- Rules List Sidebar -->
@@ -112,7 +112,12 @@ import { Rule } from '../../models/rule.model';
 
           <!-- Monaco Editor -->
           <div class="flex-1 bg-gray-50">
-            <div #editorContainer class="w-full h-full"></div>
+            <ngx-monaco-editor
+              class="w-full h-full"
+              [(ngModel)]="editorContent"
+              [options]="editorOptions"
+              (onInit)="onEditorInit($event)"
+            ></ngx-monaco-editor>
           </div>
         </div>
 
@@ -257,6 +262,10 @@ export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEditorContentChange(content: string): void {
     this.editorContent = content;
+  }
+
+  onEditorInit(editor: any): void {
+    // Editor is ready
   }
 
   selectRule(rule: Rule): void {
