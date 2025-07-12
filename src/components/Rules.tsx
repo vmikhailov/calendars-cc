@@ -204,7 +204,7 @@ const Rules: React.FC = () => {
               key={rule.id}
               className={`p-4 rounded-lg border cursor-pointer transition-all hover:shadow-sm ${
                 selectedRule?.id === rule.id
-                  ? 'border-blue-500 bg-blue-50'
+                  ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-100'
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
