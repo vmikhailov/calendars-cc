@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { User, CreditCard, Settings, Zap, Calendar, FileText } from 'lucide-react';
+import React from 'react';
+import { User, CreditCard, Settings, Calendar, FileText } from 'lucide-react';
 
 interface NavigationProps {
   activeSection: string;
