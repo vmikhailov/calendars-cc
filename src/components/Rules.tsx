@@ -202,14 +202,16 @@ const Rules: React.FC = () => {
           {rules.map((rule) => (
             <div
               key={rule.id}
-              onClick={() => setSelectedRule(rule)}
               className={`p-4 rounded-lg border cursor-pointer transition-all hover:shadow-sm ${
                 selectedRule?.id === rule.id
                   ? 'border-blue-500 bg-blue-50'
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <div className="flex items-start justify-between mb-2">
+              <div 
+                className="flex items-start justify-between mb-2"
+                onClick={() => setSelectedRule(rule)}
+              >
                 <div className="flex items-center space-x-2">
                   <div className={`status-dot ${getStatusColor(rule.status)}`}></div>
                   <h3 className="font-medium text-gray-900 text-sm">{rule.name}</h3>
@@ -249,9 +251,11 @@ const Rules: React.FC = () => {
                 </div>
               </div>
               
-              <p className="text-xs text-gray-600 mb-2">{rule.description}</p>
+              <div onClick={() => setSelectedRule(rule)}>
+                <p className="text-xs text-gray-600 mb-2">{rule.description}</p>
+              </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between" onClick={() => setSelectedRule(rule)}>
                 <span className={`inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs border ${getTypeColor(rule.type)}`}>
                   {getTypeIcon(rule.type)}
                   <span className="capitalize">{rule.type}</span>
