@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Rule} from '../models/rule.model';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Rule } from '../models/rule.model';
+import { RULES_API_SERVICE, IRulesApiService } from '../api-services/rules-api.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -128,8 +129,7 @@ return !isWeekend(event);`
     public rules$ = this.rulesSubject.asObservable();
     public selectedRule$ = this.selectedRuleSubject.asObservable();
 
-    constructor() {
-        // Set first rule as selected by default
+    constructor(@Inject(RULES_API_SERVICE) private api: IRulesApiService) {
         const rules = this.rulesSubject.value;
         if (rules.length > 0) {
             this.selectedRuleSubject.next(rules[0]);
@@ -137,7 +137,7 @@ return !isWeekend(event);`
     }
 
     getRules(): Observable<Rule[]> {
-        return this.rules$;
+        return this.api.getRules();
     }
 
     getSelectedRule(): Observable<Rule | null> {

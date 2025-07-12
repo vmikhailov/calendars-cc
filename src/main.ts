@@ -1,12 +1,18 @@
-import {bootstrapApplication} from '@angular/platform-browser';
-import {importProvidersFrom} from '@angular/core';
-import {AppComponent} from './app/app.component';
-import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
-import {LucideAngularModule} from 'lucide-angular';
-import {userIcons, statusIcons, actionIcons, navigationIcons, systemIcons} from './app/lucide-icons';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { importProvidersFrom } from '@angular/core';
+import { AppComponent } from './app/app.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { LucideAngularModule } from 'lucide-angular';
+import { userIcons, statusIcons, actionIcons, navigationIcons, systemIcons } from './app/lucide-icons';
+import { provideHttpClient } from '@angular/common/http';
+import { RulesApiService } from './app/api-services/rules-api.service';
+import { RULES_API_SERVICE } from "./app/api-services/rules-api.interface";
+import { apiProviders } from "./app/api-services/api-providers";
 
 bootstrapApplication(AppComponent, {
     providers: [
+        provideHttpClient(),
+        ...apiProviders,
         importProvidersFrom(
             MonacoEditorModule.forRoot(),
             LucideAngularModule.pick({

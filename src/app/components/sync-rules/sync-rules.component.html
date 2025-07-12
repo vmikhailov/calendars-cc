@@ -45,10 +45,10 @@
       
       <div class="flex items-center justify-between text-xs text-gray-500">
         <div class="flex items-center space-x-4">
-          <span>Status: <span class="font-medium">{{ getStatusText(rule.status) }}</span></span>
-          <span>Frequency: {{ rule.frequency }}</span>
+          <span><span class="font-medium">{{ getStatusText(rule.status) }}</span></span>
+          <span>{{ rule.frequency }}</span>
         </div>
-        <span>Last sync: {{ rule.lastSync }}</span>
+        <span>Last: {{ rule.lastSync }}</span>
       </div>
     </div>
   </div>
