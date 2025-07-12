@@ -12,9 +12,9 @@ import { Rule } from '../../models/rule.model';
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule, MonacoEditorModule],
   template: `
-    <div class="flex h-screen">
+    <div class="fixed inset-0 flex">
       <!-- Rules List Sidebar -->
-      <div class="w-80 bg-white border-r border-gray-200 flex flex-col h-full">
+      <div class="w-80 bg-white border-r border-gray-200 flex flex-col">
         <div class="p-6 border-b border-gray-200">
           <div class="flex items-center justify-between mb-4">
             <div>
@@ -82,7 +82,7 @@ import { Rule } from '../../models/rule.model';
       </div>
 
       <!-- Editor Area -->
-      <div class="flex-1 flex flex-col h-full min-w-0">
+      <div class="flex-1 flex flex-col">
         <div *ngIf="selectedRule; else noRuleSelected">
           <!-- Editor Header -->
           <div class="bg-white border-b border-gray-200 p-6">
@@ -111,9 +111,9 @@ import { Rule } from '../../models/rule.model';
           </div>
 
           <!-- Monaco Editor -->
-          <div class="flex-1 bg-gray-50 min-h-0 h-full">
+          <div class="flex-1 bg-gray-50 relative">
             <ngx-monaco-editor
-              class="w-full h-full"
+              class="absolute inset-0"
               [(ngModel)]="editorContent"
               [options]="editorOptions"
               (onInit)="onEditorInit($event)"
@@ -122,7 +122,7 @@ import { Rule } from '../../models/rule.model';
         </div>
 
         <ng-template #noRuleSelected>
-          <div class="flex-1 flex items-center justify-center bg-gray-50">
+          <div class="flex-1 flex items-center justify-center bg-gray-50 relative">
             <div class="text-center">
               <lucide-icon name="code" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
               <h3 class="text-lg font-semibold text-gray-900 mb-2">No Rule Selected</h3>
