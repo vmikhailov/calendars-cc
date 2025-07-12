@@ -228,7 +228,8 @@ export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe(rule => {
         this.selectedRule = rule;
-        this.updateEditor();
+        this.updateEditorContent();
+        this.updateEditorOptions();
       });
   }
 
