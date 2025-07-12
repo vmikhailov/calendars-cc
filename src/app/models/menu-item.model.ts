@@ -13,10 +13,10 @@ export const menuItems: MenuItem[] = [
     description: 'Calendar overview and sync management'
   },
   {
-    id: 'logs',
-    label: 'Sync Logs',
-    icon: 'file-text',
-    description: 'View synchronization history and status'
+    id: 'calendars',
+    label: 'Calendars',
+    icon: 'calendar-days',
+    description: 'Manage calendar sources and connections'
   },
   {
     id: 'rules',
@@ -41,5 +41,11 @@ export const menuItems: MenuItem[] = [
     label: 'Settings',
     icon: 'settings',
     description: 'General application settings'
+  },
+  {
+    id: 'logs',
+    label: 'Sync Logs',
+    icon: 'file-text',
+    description: 'View synchronization history and status'
   }
 ];

@@ -4,6 +4,7 @@ import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Co
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SyncLogsComponent } from './components/sync-logs/sync-logs.component';
+import { CalendarsComponent } from './components/calendars/calendars.component';
 import { RulesComponent } from './components/rules/rules.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BillingComponent } from './components/billing/billing.component';
@@ -19,6 +20,7 @@ import { NavigationService } from './services/navigation.service';
     NavigationComponent, 
     DashboardComponent, 
     SyncLogsComponent,
+    CalendarsComponent,
     RulesComponent,
     ProfileComponent,
     BillingComponent,
@@ -31,8 +33,9 @@ import { NavigationService } from './services/navigation.service';
       <main [class]="getMainClass()">
         <ng-container [ngSwitch]="activeSection">
           <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>
-          <app-sync-logs *ngSwitchCase="'logs'"></app-sync-logs>
+          <app-calendars *ngSwitchCase="'calendars'"></app-calendars>
           <app-rules *ngSwitchCase="'rules'"></app-rules>
+          <app-sync-logs *ngSwitchCase="'logs'"></app-sync-logs>
           <app-profile *ngSwitchCase="'profile'"></app-profile>
           <app-billing *ngSwitchCase="'billing'"></app-billing>
           <app-settings *ngSwitchCase="'settings'"></app-settings>
@@ -60,7 +63,7 @@ export class AppComponent implements OnInit {
   }
 
   getMainClass(): string {
-    return this.activeSection === 'logs' || this.activeSection === 'rules'
+    return this.activeSection === 'logs' || this.activeSection === 'rules' || this.activeSection === 'calendars'
       ? 'flex-1 p-8 flex flex-col'
       : 'flex-1 p-8';
   }
