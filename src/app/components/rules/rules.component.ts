@@ -111,9 +111,9 @@ import { Rule } from '../../models/rule.model';
           </div>
 
           <!-- Monaco Editor -->
-          <div class="flex-1 bg-gray-50 min-h-0">
+          <div class="flex-1 bg-gray-50 min-h-0 h-full">
             <ngx-monaco-editor
-              class="w-full h-full block"
+              class="w-full h-full"
               [(ngModel)]="editorContent"
               [options]="editorOptions"
               (onInit)="onEditorInit($event)"
