@@ -1,8 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { IStatsApiService, STATS_API_SERVICE } from "../../api-services/stats-api.interface";
-import { Observable } from "rxjs";
+import { IStatsApiService, STATS_API_SERVICE } from "../../api-services/stats/interface";
 
 interface Stat {
     title: string;

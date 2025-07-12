@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Rule } from '../models/rule.model';
-import { RULES_API_SERVICE, IRulesApiService } from '../api-services/rules-api.interface';
+import { RULES_API_SERVICE, IRulesApiService } from '../api-services/rules/interface';
 
 @Injectable({
     providedIn: 'root'
