@@ -1,4 +1,4 @@
-﻿<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full">
   <div class="flex items-center justify-between mb-6">
     <div>
       <h2 class="text-xl font-semibold text-gray-900">{{ getViewTitle() }}</h2>
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div class="space-y-4">
+  <div class="space-y-4 flex-1 overflow-y-auto">
     <div
       *ngFor="let event of getEventsForView()"
       class="flex items-start space-x-4 p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors card-hover"
