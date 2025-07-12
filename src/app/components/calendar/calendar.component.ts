@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Event } from '../../models/rule.model';
 
+interface CalendarView {
+  id: 'yesterday' | 'today' | 'tomorrow' | 'week';
+  label: string;
+}
+
 @Component({
   selector: 'app-calendar',
   standalone: true,
@@ -75,7 +80,7 @@ import { Event } from '../../models/rule.model';
 export class CalendarComponent {
   activeView: 'yesterday' | 'today' | 'tomorrow' | 'week' = 'today';
 
-  views = [
+  views: CalendarView[] = [
     { id: 'yesterday', label: 'Yesterday' },
     { id: 'today', label: 'Today' },
     { id: 'tomorrow', label: 'Tomorrow' },
