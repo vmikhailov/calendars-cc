@@ -1,16 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { IStatsApiService, STATS_API_SERVICE } from "../../api-services/stats/interface";
-
-interface Stat {
-    title: string;
-    value: string;
-    icon: string;
-    color: string;
-    bgColor: string;
-    textColor: string;
-}
+import { IStatsApiService, Stat, STATS_API_SERVICE } from "../../api-services/stats/interface";
 
 @Component({
     selector: 'app-stats-cards',

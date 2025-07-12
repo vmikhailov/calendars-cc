@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { ProfileService } from '../../services/profile.service';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -19,10 +19,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editableUser: User = {} as User;
   isEditing = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.userService.user$
+    this.profileService.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe(user => {
         this.user = user;
@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   saveProfile(): void {
-    this.userService.updateUser(this.editableUser);
+    this.profileService.updateUser(this.editableUser);
     this.isEditing = false;
   }
 

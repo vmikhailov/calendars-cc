@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { ProfileService } from '../../services/profile.service';
 import { AppSettings } from '../../models/user.model';
 
 @Component({
@@ -43,7 +43,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     { value: 'auto', label: 'Auto', icon: 'monitor' }
   ] as const;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: ProfileService) {}
 
   ngOnInit(): void {
     this.userService.settings$
