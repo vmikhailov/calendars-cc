@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { User, BillingPlan, PaymentMethod, Invoice, AppSettings } from '../models/user.model';
 
 @Injectable({providedIn: 'root'})
