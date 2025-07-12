@@ -30,13 +30,13 @@ export class NavigationComponent implements OnInit {
     const baseClass = 'w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 group';
     return this.activeSection === itemId
       ? `${baseClass} bg-primary-50 text-primary-700 border border-primary-200`
-      : `${baseClass} text-muted hover:bg-secondary-50 hover:text-default`;
+      : `${baseClass} text-gray-600 hover:bg-gray-50 hover:text-gray-900`;
   }
 
   getIconClass(itemId: string): string {
     const baseClass = 'h-5 w-5';
     return this.activeSection === itemId
       ? `${baseClass} text-primary-600`
-      : `${baseClass} text-light group-hover:text-muted`;
+      : `${baseClass} text-gray-400 group-hover:text-gray-600`;
   }
 }

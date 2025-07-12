@@ -21,25 +21,25 @@ export class StatsCardsComponent {
       title: 'Active Rules',
       value: '2',
       icon: 'refresh-cw',
-      color: 'primary'
+      color: 'blue'
     },
     {
       title: 'Events Synced Today',
       value: '27',
       icon: 'calendar',
-      color: 'success'
+      color: 'green'
     },
     {
       title: 'Success Rate',
       value: '98%',
       icon: 'check-circle',
-      color: 'info'
+      color: 'blue'
     },
     {
       title: 'Need Attention',
       value: '1',
       icon: 'alert-triangle',
-      color: 'warning'
+      color: 'yellow'
     }
   ];
 }
