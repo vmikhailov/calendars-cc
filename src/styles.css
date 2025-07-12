@@ -45,7 +45,8 @@
 
 .rule-code-editor {
   .editor-container {
-    /*height: calc(100vh - 100px);*/
-    height: 1000px;
+    /*height: calc(100vh - 10px);*/
+    height: calc(1000px);
+    background-color: #667eea;
   }
 }
