@@ -53,6 +53,8 @@ bootstrapApplication(AppComponent, {
         Download,
         Check,
         X,
+        Package,
+        Package,
         Sun,
         Moon,
         Monitor,

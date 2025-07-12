@@ -16,46 +16,144 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
         <p class="text-gray-600">Manage your subscription and billing information</p>
       </div>
 
-      <!-- Current Plan -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Current Plan</h2>
-        
-        <div *ngIf="currentPlan" class="flex items-center justify-between">
-          <div>
-            <div class="flex items-center space-x-3">
-              <h3 class="text-xl font-bold text-gray-900">{{ currentPlan.name }}</h3>
-              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium">Current</span>
-            </div>
-            <p class="text-gray-600 mt-1">
-              &#36;{{ currentPlan.price }}/{{ currentPlan.interval }}
-            </p>
-          </div>
-          
-          <button 
-            (click)="showPlans = true"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Change Plan
-          </button>
+      <!-- Tab Navigation -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+        <div class="border-b border-gray-200">
+          <nav class="flex space-x-8 px-6">
+            <button
+              *ngFor="let tab of tabs"
+              (click)="setActiveTab(tab.id)"
+              [class]="getTabClass(tab.id)"
+            >
+              <lucide-icon [name]="tab.icon" class="h-4 w-4 mr-2"></lucide-icon>
+              {{ tab.label }}
+            </button>
+          </nav>
         </div>
-      </div>
 
-      <!-- Plans Modal -->
-      <div *ngIf="showPlans" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-          <div class="p-6 border-b border-gray-200">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-semibold text-gray-900">Choose Your Plan</h3>
-              <button 
-                (click)="showPlans = false"
-                class="text-gray-400 hover:text-gray-600"
-              >
-                <lucide-icon name="x" class="h-6 w-6"></lucide-icon>
-              </button>
+        <!-- Tab Content -->
+        <div class="p-6">
+          <!-- Overview Tab -->
+          <div *ngIf="activeTab === 'overview'">
+            <!-- Current Plan -->
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">Current Plan</h2>
+              
+              <div *ngIf="currentPlan" class="flex items-center justify-between">
+                <div>
+                  <div class="flex items-center space-x-3">
+                    <h3 class="text-xl font-bold text-gray-900">{{ currentPlan.name }}</h3>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium">Current</span>
+                  </div>
+                  <p class="text-gray-600 mt-1">
+                    &#36;{{ currentPlan.price }}/{{ currentPlan.interval }}
+                  </p>
+                </div>
+                
+                <button 
+                  (click)="setActiveTab('plans')"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Change Plan
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- Payment Methods -->
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <h2 class="text-lg font-semibold text-gray-900">Payment Methods</h2>
+                  <button 
+                    (click)="showAddPayment = true"
+                    class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+                    <span>Add Method</span>
+                  </button>
+                </div>
+                
+                <div class="space-y-4">
+                  <div
+                    *ngFor="let method of paymentMethods"
+                    class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+                  >
+                    <div class="flex items-center space-x-3">
+                      <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center">
+                        <lucide-icon name="credit-card" class="h-4 w-4 text-gray-600"></lucide-icon>
+                      </div>
+                      <div>
+                        <div class="font-medium text-gray-900">
+                          {{ method.brand }} •••• {{ method.last4 }}
+                        </div>
+                        <div class="text-sm text-gray-500">
+                          Expires {{ method.expiryMonth }}/{{ method.expiryYear }}
+                          <span *ngIf="method.isDefault" class="ml-2 bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs">Default</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                      <button
+                        *ngIf="!method.isDefault"
+                        (click)="setDefaultPayment(method.id)"
+                        class="text-sm text-blue-600 hover:text-blue-700"
+                      >
+                        Set Default
+                      </button>
+                      <button
+                        (click)="removePaymentMethod(method.id)"
+                        class="text-red-600 hover:text-red-700"
+                      >
+                        <lucide-icon name="trash-2" class="h-4 w-4"></lucide-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Billing Summary -->
+              <div>
+                <h2 class="text-lg font-semibold text-gray-900 mb-6">Recent Activity</h2>
+                
+                <div class="space-y-4">
+                  <div
+                    *ngFor="let invoice of invoices.slice(0, 3)"
+                    class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+                  >
+                    <div>
+                      <div class="font-medium text-gray-900">{{ formatInvoiceDate(invoice.date) }}</div>
+                      <div class="text-sm text-gray-500">&#36;{{ invoice.amount.toFixed(2) }}</div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                      <span [class]="getStatusBadgeClass(invoice.status)">
+                        {{ invoice.status | titlecase }}
+                      </span>
+                      <button class="text-blue-600 hover:text-blue-700">
+                        <lucide-icon name="download" class="h-4 w-4"></lucide-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <button 
+                  (click)="setActiveTab('history')"
+                  class="w-full mt-4 text-center text-blue-600 hover:text-blue-700 text-sm"
+                >
+                  View All Billing History
+                </button>
+              </div>
             </div>
           </div>
-          
-          <div class="p-6">
+
+          <!-- Plans Tab -->
+          <div *ngIf="activeTab === 'plans'">
+            <div class="mb-6">
+              <h2 class="text-xl font-semibold text-gray-900 mb-2">Choose Your Plan</h2>
+              <p class="text-gray-600">Select the plan that best fits your needs</p>
+            </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div
                 *ngFor="let plan of billingPlans"
@@ -90,83 +188,32 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Payment Methods -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-semibold text-gray-900">Payment Methods</h2>
-            <button 
-              (click)="showAddPayment = true"
-              class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
-            >
-              <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
-              <span>Add Method</span>
-            </button>
-          </div>
-          
-          <div class="space-y-4">
-            <div
-              *ngFor="let method of paymentMethods"
-              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
-            >
-              <div class="flex items-center space-x-3">
-                <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center">
-                  <lucide-icon name="credit-card" class="h-4 w-4 text-gray-600"></lucide-icon>
-                </div>
-                <div>
-                  <div class="font-medium text-gray-900">
-                    {{ method.brand }} •••• {{ method.last4 }}
-                  </div>
-                  <div class="text-sm text-gray-500">
-                    Expires {{ method.expiryMonth }}/{{ method.expiryYear }}
-                    <span *ngIf="method.isDefault" class="ml-2 bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs">Default</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="flex items-center space-x-2">
-                <button
-                  *ngIf="!method.isDefault"
-                  (click)="setDefaultPayment(method.id)"
-                  class="text-sm text-blue-600 hover:text-blue-700"
-                >
-                  Set Default
-                </button>
-                <button
-                  (click)="removePaymentMethod(method.id)"
-                  class="text-red-600 hover:text-red-700"
-                >
-                  <lucide-icon name="trash-2" class="h-4 w-4"></lucide-icon>
-                </button>
-              </div>
+          <!-- History Tab -->
+          <div *ngIf="activeTab === 'history'">
+            <div class="mb-6">
+              <h2 class="text-xl font-semibold text-gray-900 mb-2">Billing History</h2>
+              <p class="text-gray-600">View and download your past invoices</p>
             </div>
-          </div>
-        </div>
 
-        <!-- Billing History -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 class="text-lg font-semibold text-gray-900 mb-6">Billing History</h2>
-          
-          <div class="space-y-4">
-            <div
-              *ngFor="let invoice of invoices"
-              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
-            >
-              <div>
-                <div class="font-medium text-gray-900">{{ formatInvoiceDate(invoice.date) }}</div>
-                <div class="text-sm text-gray-500">&#36;{{ invoice.amount.toFixed(2) }}</div>
-              </div>
-              
-              <div class="flex items-center space-x-3">
-                <span [class]="getStatusBadgeClass(invoice.status)">
-                  {{ invoice.status | titlecase }}
-                </span>
-                <button class="text-blue-600 hover:text-blue-700">
-                  <lucide-icon name="download" class="h-4 w-4"></lucide-icon>
-                </button>
+            <div class="space-y-4">
+              <div
+                *ngFor="let invoice of invoices"
+                class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <div>
+                  <div class="font-medium text-gray-900">{{ formatInvoiceDate(invoice.date) }}</div>
+                  <div class="text-sm text-gray-500">&#36;{{ invoice.amount.toFixed(2) }}</div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                  <span [class]="getStatusBadgeClass(invoice.status)">
+                    {{ invoice.status | titlecase }}
+                  </span>
+                  <button class="text-blue-600 hover:text-blue-700">
+                    <lucide-icon name="download" class="h-4 w-4"></lucide-icon>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -239,11 +286,11 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
 export class BillingComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   
+  activeTab: 'overview' | 'plans' | 'history' = 'overview';
   billingPlans: BillingPlan[] = [];
   paymentMethods: PaymentMethod[] = [];
   invoices: Invoice[] = [];
   currentPlan: BillingPlan | null = null;
-  showPlans = false;
   showAddPayment = false;
 
   constructor(private userService: UserService) {}
@@ -276,7 +323,7 @@ export class BillingComponent implements OnInit, OnDestroy {
 
   changePlan(planId: string): void {
     this.userService.changePlan(planId);
-    this.showPlans = false;
+    this.setActiveTab('overview');
   }
 
   addPaymentMethod(): void {
@@ -300,6 +347,23 @@ export class BillingComponent implements OnInit, OnDestroy {
 
   setDefaultPayment(methodId: string): void {
     this.userService.setDefaultPaymentMethod(methodId);
+  }
+
+  setActiveTab(tab: 'overview' | 'plans' | 'history'): void {
+    this.activeTab = tab;
+  }
+
+  tabs = [
+    { id: 'overview' as const, label: 'Overview', icon: 'credit-card' },
+    { id: 'plans' as const, label: 'Change Plan', icon: 'package' },
+    { id: 'history' as const, label: 'Billing History', icon: 'file-text' }
+  ];
+
+  getTabClass(tabId: string): string {
+    const baseClass = 'flex items-center py-4 px-1 border-b-2 font-medium text-sm transition-colors';
+    return this.activeTab === tabId
+      ? `${baseClass} border-blue-500 text-blue-600`
+      : `${baseClass} border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300`;
   }
 
   getPlanCardClass(plan: BillingPlan): string {
