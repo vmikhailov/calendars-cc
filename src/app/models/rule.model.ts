@@ -36,3 +36,15 @@ export interface Event {
   calendar: string;
   color: string;
 }
+
+export interface CalendarSource {
+  id: string;
+  name: string;
+  type: 'google' | 'outlook' | 'apple' | 'exchange';
+  email: string;
+  status: 'connected' | 'disconnected' | 'error';
+  lastSync: string;
+  eventsCount: number;
+  color: string;
+  isDefault?: boolean;
+}

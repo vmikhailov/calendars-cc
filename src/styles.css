@@ -42,3 +42,11 @@
 .pulse-success {
   animation: pulse-success 2s ease-in-out infinite;
 }
+
+.rule-code-editor {
+  .editor-container {
+    /*height: calc(100vh - 10px);*/
+    height: calc(1000px);
+    background-color: #667eea;
+  }
+}

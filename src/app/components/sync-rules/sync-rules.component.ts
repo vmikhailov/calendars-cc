@@ -8,7 +8,7 @@ import { SyncRule } from '../../models/rule.model';
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   template: `
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-semibold text-gray-900">Sync Rules</h2>
         <button 
@@ -20,7 +20,7 @@ import { SyncRule } from '../../models/rule.model';
         </button>
       </div>
       
-      <div class="space-y-4">
+      <div class="space-y-4 flex-1 overflow-y-auto">
         <div
           *ngFor="let rule of syncRules"
           class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all card-hover"
