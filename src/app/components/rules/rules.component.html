@@ -1,6 +1,6 @@
-<div class="flex h-full">
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 flex h-full">
     <!-- Rules List Sidebar -->
-    <div class="w-80 bg-white rounded-l-xl border border-gray-200 flex flex-col">
+    <div class="w-80 bg-white rounded-l-xl flex flex-col">
         <div class="p-6 border-b border-gray-200 h-[120px] flex flex-col justify-center">
             <div class="flex items-center justify-between mb-4">
                 <div>
@@ -68,10 +68,10 @@
     </div>
 
     <!-- Editor Area -->
-    <div class="flex-1 flex flex-col min-w-0 bg-white rounded-r-xl border-t border-r border-b border-gray-200">
+    <div class="flex-1 flex flex-col min-w-0 bg-white rounded-r-xl border-l border-gray-200">
         <div *ngIf="selectedRule; else noRuleSelected">
             <!-- Editor Header -->
-            <div class="bg-white border-b border-gray-200 p-6 rounded-tr-xl h-[120px] flex flex-col justify-center">
+            <div class="bg-white border-b border-gray-200 p-6 h-[120px] flex flex-col justify-center">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-lg font-semibold text-gray-900">{{ selectedRule.name }}</h2>
@@ -97,7 +97,7 @@
             </div>
 
             <!-- Monaco Editor -->
-            <div class="flex-1 bg-gray-50 rounded-br-xl overflow-hidden">
+            <div class="flex-1 bg-gray-50 overflow-hidden">
                 <ngx-monaco-editor
                         class="w-full h-full"
                         [(ngModel)]="editorContent"
