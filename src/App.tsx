@@ -8,6 +8,7 @@ import SyncLogs from './components/SyncLogs';
 import Profile from './components/Profile';
 import Billing from './components/Billing';
 import Settings from './components/Settings';
+import Rules from './components/Rules';
 
 function App() {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -16,6 +17,8 @@ function App() {
     switch (activeSection) {
       case 'logs':
         return <SyncLogs />;
+      case 'rules':
+        return <Rules />;
       case 'profile':
         return <Profile />;
       case 'billing':

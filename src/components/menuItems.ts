@@ -1,4 +1,5 @@
-﻿import { User, CreditCard, Settings, Calendar, FileText } from 'lucide-react';
+import { User, CreditCard, Settings, Calendar, FileText } from 'lucide-react';
+import { Code } from 'lucide-react';
 
 export type MenuItem = {
     id: string;
@@ -19,6 +20,12 @@ export const menuItems: MenuItem[] = [
         label: 'Sync Logs',
         icon: FileText,
         description: 'View synchronization history and status'
+    },
+    {
+        id: 'rules',
+        label: 'Rules',
+        icon: Code,
+        description: 'Create and edit synchronization rules'
     },
     {
         id: 'profile',
