@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { IStatsApiService, Stat, STATS_API_SERVICE } from "../../api-services/stats/interface";
+import { AutoRefreshComponent } from "../../framework/auto-refresh.component";
 
 @Component({
     selector: 'app-stats-cards',
@@ -9,15 +10,12 @@ import { IStatsApiService, Stat, STATS_API_SERVICE } from "../../api-services/st
     imports: [CommonModule, LucideAngularModule],
     templateUrl: './stats-cards.component.html'
 })
-export class StatsCardsComponent implements OnInit {
-    constructor(@Inject(STATS_API_SERVICE) private api: IStatsApiService) {
-    }
-
+export class StatsCardsComponent extends AutoRefreshComponent implements OnInit {
     stats: Stat[] = [];
 
+    constructor(@Inject(STATS_API_SERVICE) private api: IStatsApiService) { super(); }
+
     ngOnInit() {
-        this.api.getStats().subscribe((data: Stat[]) => {
-            this.stats = data;
-        });
+        this.startAutoRefresh(() => this.api.getStats().subscribe(data => this.stats = data), 5000);
     }
 }

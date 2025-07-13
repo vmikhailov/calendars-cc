@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Rule } from '../../models/rule.model';
 import { IRulesApiService } from './interface';
-import { MOCK_RULES } from "./mock.data";
-import { rule } from "postcss";
+import { MOCK_RULES } from "./mock-data";
 
 @Injectable({ providedIn: 'root' })
 export class RulesApiMockService implements IRulesApiService {

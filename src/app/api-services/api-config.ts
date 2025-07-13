@@ -16,6 +16,7 @@ export interface ApiConfig {
     rules: ApiEndpointConfig;
     stats: ApiEndpointConfig;
     calendar: ApiEndpointConfig;
+    settings: ApiEndpointConfig;
     getApiUrl(
         service: keyof Omit<ApiConfig, 'host' | 'getApiUrl'>,
         action: string,
@@ -44,10 +45,18 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
             getAll: '',             // GET
         }
     },
+
     calendar: {
         root: '/api/events',
         paths: {
             getAll: '',             // GET
+        }
+    },
+    settings: {
+        root: '/api/settings',
+        paths: {
+            get: '', // GET
+            update: '', // PUT
         }
     },
 
