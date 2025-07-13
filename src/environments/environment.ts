@@ -1,3 +1,5 @@
-console.log("production environment");
+console.log("mock environment");
 
-export const useMocks: boolean = false;
+export const environment = {
+    apiRoot: null
+}

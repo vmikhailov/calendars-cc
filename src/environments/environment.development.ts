@@ -1,3 +1,5 @@
 console.log("development environment");
 
-export const useMocks: boolean = true;
+export const environment = {
+    apiRoot: 'http://localhost:4000'
+}

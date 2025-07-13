@@ -36,6 +36,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -60,9 +66,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "mock": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "mock"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -72,9 +83,12 @@
             },
             "development": {
               "buildTarget": "calendars-cc:build:development"
+            },
+            "mock": {
+              "buildTarget": "calendars-cc:build:mock"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "mock"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
