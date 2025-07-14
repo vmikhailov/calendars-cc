@@ -75,4 +75,35 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.credentials.email = 'demo@example.com';
         this.credentials.password = 'df434234sadf331!@#!';
     }
+
+  // Social login methods
+  loginWithGoogle(): void {
+    // In a real app, this would integrate with Google OAuth
+    console.log('Login with Google');
+    // For demo purposes, simulate successful login
+    this.authService.login({
+      email: 'google.user@gmail.com',
+      password: 'df434234sadf331!@#!'
+    }).subscribe();
+  }
+
+  loginWithMicrosoft(): void {
+    // In a real app, this would integrate with Microsoft OAuth
+    console.log('Login with Microsoft');
+    // For demo purposes, simulate successful login
+    this.authService.login({
+      email: 'microsoft.user@outlook.com',
+      password: 'df434234sadf331!@#!'
+    }).subscribe();
+  }
+
+  loginWithGitHub(): void {
+    // In a real app, this would integrate with GitHub OAuth
+    console.log('Login with GitHub');
+    // For demo purposes, simulate successful login
+    this.authService.login({
+      email: 'github.user@github.com',
+      password: 'df434234sadf331!@#!'
+    }).subscribe();
+  }
 }
