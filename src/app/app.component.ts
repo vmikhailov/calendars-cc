@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Code } from 'lucide-angular';
-import { Subject, takeUntil, filter } from 'rxjs';
+import { Subject, takeUntil, filter, Observable } from 'rxjs';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { NavigationService } from './services/navigation.service';
 import { AuthService } from './services/auth.service';
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         takeUntil(this.destroy$)
-      )
+      ) as Observable<NavigationEnd>
       .subscribe((event: NavigationEnd) => {
         const url = event.urlAfterRedirects;
         if (url.includes('/auth/')) {
