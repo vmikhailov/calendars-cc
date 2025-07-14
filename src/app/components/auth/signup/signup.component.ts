@@ -115,4 +115,41 @@ export class SignupComponent implements OnInit, OnDestroy {
         return { strength: '', color: '', width: '0%' };
     }
   }
+
+  // Social signup methods
+  signupWithGoogle(): void {
+    // In a real app, this would integrate with Google OAuth
+    console.log('Signup with Google');
+    // For demo purposes, simulate successful signup
+    this.authService.signup({
+      name: 'Google User',
+      email: 'google.user@gmail.com',
+      password: 'df434234sadf331!@#!',
+      confirmPassword: 'df434234sadf331!@#!'
+    }).subscribe();
+  }
+
+  signupWithMicrosoft(): void {
+    // In a real app, this would integrate with Microsoft OAuth
+    console.log('Signup with Microsoft');
+    // For demo purposes, simulate successful signup
+    this.authService.signup({
+      name: 'Microsoft User',
+      email: 'microsoft.user@outlook.com',
+      password: 'df434234sadf331!@#!',
+      confirmPassword: 'df434234sadf331!@#!'
+    }).subscribe();
+  }
+
+  signupWithGitHub(): void {
+    // In a real app, this would integrate with GitHub OAuth
+    console.log('Signup with GitHub');
+    // For demo purposes, simulate successful signup
+    this.authService.signup({
+      name: 'GitHub User',
+      email: 'github.user@github.com',
+      password: 'df434234sadf331!@#!',
+      confirmPassword: 'df434234sadf331!@#!'
+    }).subscribe();
+  }
 }
