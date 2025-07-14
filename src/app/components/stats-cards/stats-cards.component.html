@@ -4,11 +4,11 @@
       class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 card-hover">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-sm text-gray-600 mb-1">{{ stat.title }}</p>
+        <p class="text-sm text-gray-500 mb-1">{{ stat.title }}</p>
         <p class="text-2xl font-bold text-gray-900">{{ stat.value }}</p>
       </div>
-      <div [class]="'p-3 rounded-lg bg-' + stat.color + '-50'">
-        <lucide-icon [name]="stat.icon" [class]="'h-6 w-6 text-' + stat.color + '-700'"></lucide-icon>
+      <div [class]="'p-3 rounded-lg ' + stat.bgColor">
+        <lucide-icon [name]="stat.icon" [class]="'h-6 w-6 ' + stat.textColor"></lucide-icon>
       </div>
     </div>
   </div>

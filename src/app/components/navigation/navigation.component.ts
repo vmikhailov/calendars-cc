@@ -5,7 +5,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
 import { NavigationService } from '../../services/navigation.service';
 import { AuthService } from '../../services/auth.service';
-import { menuItems, MenuItem } from '../../models/menu-item.model';
+import { menuItems } from '../../models/menu-item.model';
 import { AuthUser } from '../../models/auth.model';
 
 @Component({
@@ -53,14 +53,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   getButtonClass(itemId: string): string {
     const baseClass = 'w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 group';
     return this.activeSection === itemId
-      ? `${baseClass} bg-primary-50 text-primary-700 border border-primary-200`
+      ? `${baseClass} bg-blue-50 text-blue-700 border border-blue-200`
       : `${baseClass} text-gray-600 hover:bg-gray-50 hover:text-gray-900`;
   }
 
   getIconClass(itemId: string): string {
     const baseClass = 'h-5 w-5';
     return this.activeSection === itemId
-      ? `${baseClass} text-primary-600`
+      ? `${baseClass} text-blue-600`
       : `${baseClass} text-gray-400 group-hover:text-gray-600`;
   }
 

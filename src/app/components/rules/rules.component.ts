@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
@@ -171,16 +171,16 @@ return ${this.newRule.type}Rule(event);`
   getRuleCardClass(rule: Rule): string {
     const baseClass = 'p-4 rounded-lg border cursor-pointer transition-all hover:shadow-sm';
     return this.selectedRule?.id === rule.id
-        ? `${baseClass} border-primary bg-primary-50`
-        : `${baseClass} border-default hover:border-secondary-300 hover:bg-secondary-50`;
+        ? `${baseClass} border-blue-500 bg-blue-50`
+        : `${baseClass} border-gray-200 hover:border-gray-300 hover:bg-gray-50`;
   }
 
   getStatusColor(status: string): string {
     switch (status) {
-      case 'active': return 'bg-active';
-      case 'paused': return 'bg-paused';
-      case 'draft': return 'bg-draft';
-      default: return 'bg-draft';
+      case 'active': return 'bg-green-500';
+      case 'paused': return 'bg-yellow-500';
+      case 'draft': return 'bg-gray-500';
+      default: return 'bg-gray-500';
     }
   }
 
@@ -195,10 +195,10 @@ return ${this.newRule.type}Rule(event);`
 
   getTypeColor(type: string): string {
     switch (type) {
-      case 'filter': return 'bg-primary-50 text-primary-700 border-primary-200';
-      case 'transform': return 'bg-info-50 text-info-700 border-info-200';
-      case 'condition': return 'bg-success-50 text-success-700 border-success-200';
-      default: return 'bg-secondary-50 text-secondary-700 border-secondary-200';
+      case 'filter': return 'bg-blue-50 text-blue-700 border-blue-200';
+      case 'transform': return 'bg-purple-50 text-purple-700 border-purple-200';
+      case 'condition': return 'bg-green-50 text-green-700 border-green-200';
+      default: return 'bg-gray-50 text-gray-700 border-gray-200';
     }
   }
 }

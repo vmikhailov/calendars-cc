@@ -1,16 +1,16 @@
 <div class="max-w-6xl mx-auto">
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-default mb-2">Calendars</h1>
-        <p class="text-muted">Manage your calendar sources and connection settings</p>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Calendars</h1>
+        <p class="text-gray-600">Manage your calendar sources and connection settings</p>
     </div>
 
     <!-- Connected Calendars -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
         <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-semibold text-default">Connected Calendars</h2>
+            <h2 class="text-lg font-semibold text-gray-900">Connected Calendars</h2>
             <button
                     (click)="showAddModal = true"
-                    class="flex items-center space-x-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                    class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
                 <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
                 <span>Add Calendar</span>
@@ -20,17 +20,17 @@
         <div class="space-y-4">
             <div
                     *ngFor="let source of calendarSources"
-                    class="border border-default rounded-lg p-4 hover:shadow-sm transition-all"
+                    class="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-all"
             >
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <div [class]="'w-4 h-4 rounded-full ' + source.color"></div>
                         <div>
                             <div class="flex items-center space-x-2">
-                                <h3 class="font-medium text-default">{{ source.name }}</h3>
-                                <span *ngIf="source.isDefault" class="bg-primary-100 text-primary-800 px-2 py-1 rounded-full text-xs font-medium">Default</span>
+                                <h3 class="font-medium text-gray-900">{{ source.name }}</h3>
+                                <span *ngIf="source.isDefault" class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">Default</span>
                             </div>
-                            <p class="text-sm text-muted">{{ source.email }}</p>
+                            <p class="text-sm text-gray-500">{{ source.email }}</p>
                         </div>
                     </div>
 
@@ -43,41 +43,41 @@
                         </div>
 
                         <div class="flex items-center space-x-2">
-                            <button class="p-2 text-light hover:text-primary transition-colors">
+                            <button class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
                                 <lucide-icon name="settings" class="h-4 w-4"></lucide-icon>
                             </button>
-                            <button class="p-2 text-light hover:text-success transition-colors">
+                            <button class="p-2 text-gray-400 hover:text-green-600 transition-colors">
                                 <lucide-icon name="refresh-cw" class="h-4 w-4"></lucide-icon>
                             </button>
-                            <button class="p-2 text-light hover:text-danger transition-colors">
+                            <button class="p-2 text-gray-400 hover:text-red-600 transition-colors">
                                 <lucide-icon name="trash-2" class="h-4 w-4"></lucide-icon>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-light">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-100">
                     <div>
-                        <label class="block text-xs font-medium text-light mb-1">Provider</label>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Provider</label>
                         <div class="flex items-center space-x-1">
-                            <lucide-icon [name]="getProviderIcon(source.type)" class="h-4 w-4 text-muted"></lucide-icon>
-                            <span class="text-sm text-default capitalize">{{ source.type }}</span>
+                            <lucide-icon [name]="getProviderIcon(source.type)" class="h-4 w-4 text-gray-600"></lucide-icon>
+                            <span class="text-sm text-gray-900 capitalize">{{ source.type }}</span>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-medium text-light mb-1">Events</label>
-                        <span class="text-sm text-default">{{ source.eventsCount }}</span>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Events</label>
+                        <span class="text-sm text-gray-900">{{ source.eventsCount }}</span>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-medium text-light mb-1">Last Sync</label>
-                        <span class="text-sm text-default">{{ source.lastSync }}</span>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Last Sync</label>
+                        <span class="text-sm text-gray-900">{{ source.lastSync }}</span>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-medium text-light mb-1">Sync Frequency</label>
-                        <select class="text-sm border border-default rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Sync Frequency</label>
+                        <select class="text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option>Every 15 min</option>
                             <option>Every 30 min</option>
                             <option>Every hour</option>
@@ -90,12 +90,12 @@
 
     <!-- Calendar Settings -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 class="text-lg font-semibold text-default mb-6">Global Calendar Settings</h2>
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Global Calendar Settings</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label class="block text-sm font-medium text-muted mb-2">Default Calendar</label>
-                <select class="w-full border border-default rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Default Calendar</label>
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option>Work Calendar (Google)</option>
                     <option>Personal Calendar (Outlook)</option>
                     <option>Family Calendar (Apple)</option>
@@ -103,8 +103,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-muted mb-2">Time Zone</label>
-                <select class="w-full border border-default rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Time Zone</label>
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option>Eastern Time (ET)</option>
                     <option>Central Time (CT)</option>
                     <option>Mountain Time (MT)</option>
@@ -113,8 +113,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-muted mb-2">Default Event Duration</label>
-                <select class="w-full border border-default rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Default Event Duration</label>
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option>30 minutes</option>
                     <option>1 hour</option>
                     <option>2 hours</option>
@@ -122,23 +122,23 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-muted mb-2">Week Start</label>
-                <select class="w-full border border-default rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Week Start</label>
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option>Sunday</option>
                     <option>Monday</option>
                 </select>
             </div>
         </div>
 
-        <div class="mt-6 pt-6 border-t border-default">
+        <div class="mt-6 pt-6 border-t border-gray-200">
             <div class="flex items-center justify-between">
                 <div>
-                    <h3 class="font-medium text-default">Auto-sync calendars</h3>
-                    <p class="text-sm text-muted">Automatically synchronize all connected calendars</p>
+                    <h3 class="font-medium text-gray-900">Auto-sync calendars</h3>
+                    <p class="text-sm text-gray-600">Automatically synchronize all connected calendars</p>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" checked class="sr-only peer" />
-                    <div class="w-11 h-6 bg-secondary-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-secondary-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                 </label>
             </div>
         </div>
@@ -147,23 +147,23 @@
     <!-- Add Calendar Modal -->
     <div *ngIf="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
-            <h3 class="text-lg font-semibold text-default mb-4">Add Calendar Source</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Add Calendar Source</h3>
 
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-muted mb-2">Calendar Provider</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Calendar Provider</label>
                     <div class="grid grid-cols-2 gap-3">
                         <button
                                 *ngFor="let provider of providers"
-                                class="flex items-center space-x-3 p-3 border border-default rounded-lg hover:bg-secondary-50 transition-colors"
+                                class="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                         >
-                            <lucide-icon [name]="provider.icon" class="h-5 w-5 text-muted"></lucide-icon>
-                            <span class="font-medium text-default">{{ provider.name }}</span>
+                            <lucide-icon [name]="provider.icon" class="h-5 w-5 text-gray-600"></lucide-icon>
+                            <span class="font-medium text-gray-900">{{ provider.name }}</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="text-sm text-muted bg-info-50 p-3 rounded-lg">
+                <div class="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg">
                     <lucide-icon name="info" class="h-4 w-4 inline mr-2"></lucide-icon>
                     You'll be redirected to authenticate with your calendar provider.
                 </div>
@@ -172,7 +172,7 @@
             <div class="flex justify-end space-x-3 mt-6">
                 <button
                         (click)="showAddModal = false"
-                        class="px-4 py-2 text-muted bg-secondary-100 rounded-lg hover:bg-secondary-200 transition-colors"
+                        class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                     Cancel
                 </button>
