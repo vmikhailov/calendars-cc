@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         takeUntil(this.destroy$)
-      ) as Observable<NavigationEnd>
+      )
       .subscribe((event: NavigationEnd) => {
         const url = event.urlAfterRedirects;
         if (url.includes('/auth/')) {
