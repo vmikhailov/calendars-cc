@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { ProfileService } from '../../services/profile.service';
 import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
 
 @Component({
@@ -21,23 +21,23 @@ export class BillingComponent implements OnInit, OnDestroy {
   currentPlan: BillingPlan | null = null;
   showAddPayment = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.userService.billingPlans$
+    this.profileService.billingPlans$
       .pipe(takeUntil(this.destroy$))
       .subscribe(plans => {
         this.billingPlans = plans;
         this.currentPlan = plans.find(p => p.current) || null;
       });
 
-    this.userService.paymentMethods$
+    this.profileService.paymentMethods$
       .pipe(takeUntil(this.destroy$))
       .subscribe(methods => {
         this.paymentMethods = methods;
       });
 
-    this.userService.invoices$
+    this.profileService.invoices$
       .pipe(takeUntil(this.destroy$))
       .subscribe(invoices => {
         this.invoices = invoices;
@@ -50,7 +50,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   changePlan(planId: string): void {
-    this.userService.changePlan(planId);
+    this.profileService.changePlan(planId);
     this.setActiveTab('overview');
   }
 
@@ -65,16 +65,16 @@ export class BillingComponent implements OnInit, OnDestroy {
       isDefault: this.paymentMethods.length === 0
     };
     
-    this.userService.addPaymentMethod(newMethod);
+    this.profileService.addPaymentMethod(newMethod);
     this.showAddPayment = false;
   }
 
   removePaymentMethod(methodId: string): void {
-    this.userService.removePaymentMethod(methodId);
+    this.profileService.removePaymentMethod(methodId);
   }
 
   setDefaultPayment(methodId: string): void {
-    this.userService.setDefaultPaymentMethod(methodId);
+    this.profileService.setDefaultPaymentMethod(methodId);
   }
 
   setActiveTab(tab: 'overview' | 'plans' | 'history'): void {

@@ -1,45 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-
-interface Stat {
-  title: string;
-  value: string;
-  icon: string;
-  color: string;
-}
+import { IStatsApiService, Stat, STATS_API_SERVICE } from "../../api-services/stats/interface";
+import { AutoRefreshComponent } from "../../framework/auto-refresh.component";
 
 @Component({
-  selector: 'app-stats-cards',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule],
-  templateUrl: './stats-cards.component.html'
+    selector: 'app-stats-cards',
+    standalone: true,
+    imports: [CommonModule, LucideAngularModule],
+    templateUrl: './stats-cards.component.html'
 })
-export class StatsCardsComponent {
-  stats: Stat[] = [
-    {
-      title: 'Active Rules',
-      value: '2',
-      icon: 'refresh-cw',
-      color: 'blue'
-    },
-    {
-      title: 'Events Synced Today',
-      value: '27',
-      icon: 'calendar',
-      color: 'green'
-    },
-    {
-      title: 'Success Rate',
-      value: '98%',
-      icon: 'check-circle',
-      color: 'blue'
-    },
-    {
-      title: 'Need Attention',
-      value: '1',
-      icon: 'alert-triangle',
-      color: 'yellow'
+export class StatsCardsComponent extends AutoRefreshComponent implements OnInit {
+    stats: Stat[] = [];
+
+    constructor(@Inject(STATS_API_SERVICE) private api: IStatsApiService) {
+        super();
     }
-  ];
+
+    ngOnInit() {
+        this.startAutoRefresh(() =>
+            this.api.getStats().subscribe(data => this.stats = data), 5000);
+    }
 }

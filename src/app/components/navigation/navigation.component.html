@@ -1,12 +1,12 @@
 <nav class="bg-white border-r border-gray-200 w-64 min-h-screen">
   <div class="p-6">
     <div class="flex items-center space-x-3 mb-8">
-      <div class="bg-gradient-to-br from-primary to-secondary-700 p-2 rounded-lg">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
         <lucide-icon name="calendar" class="h-6 w-6 text-white"></lucide-icon>
       </div>
       <div>
-        <h1 class="text-xl font-bold text-gray-900">CalendarSync</h1>
-        <p class="text-sm text-gray-600">Calendar Synchronization</p>
+        <h1 class="text-xl font-bold text-gray-900">Calendars.cc</h1>
+        <p class="text-sm text-gray-500">Calendar Synchronization</p>
       </div>
     </div>
 
@@ -22,11 +22,58 @@
         ></lucide-icon>
         <div class="flex-1 min-w-0">
           <div class="font-medium">{{ item.label }}</div>
-          <div class="text-xs text-light mt-0.5 truncate">
+          <div class="text-xs text-gray-500 mt-0.5 truncate">
             {{ item.description }}
           </div>
         </div>
       </button>
+    </div>
+
+    <!-- User Profile Section -->
+    <div class="mt-auto pt-6 border-t border-gray-200">
+      <div class="relative">
+        <button
+          (click)="toggleUserMenu()"
+          class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 hover:bg-gray-50"
+        >
+          <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+            <span class="text-sm font-bold text-white">{{ getUserInitials() }}</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-medium text-gray-900 truncate">{{ user?.name }}</div>
+            <div class="text-xs text-gray-500 truncate">{{ user?.email }}</div>
+          </div>
+          <lucide-icon name="chevron-up" class="h-4 w-4 text-gray-400 transition-transform" 
+                       [class.rotate-180]="!showUserMenu"></lucide-icon>
+        </button>
+
+        <!-- User Menu Dropdown -->
+        <div *ngIf="showUserMenu" 
+             class="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
+          <button
+            (click)="onSectionChange('profile')"
+            class="w-full flex items-center space-x-3 px-4 py-2 text-left hover:bg-gray-50 transition-colors"
+          >
+            <lucide-icon name="user" class="h-4 w-4 text-gray-400"></lucide-icon>
+            <span class="text-sm text-gray-700">Profile</span>
+          </button>
+          <button
+            (click)="onSectionChange('settings')"
+            class="w-full flex items-center space-x-3 px-4 py-2 text-left hover:bg-gray-50 transition-colors"
+          >
+            <lucide-icon name="settings" class="h-4 w-4 text-gray-400"></lucide-icon>
+            <span class="text-sm text-gray-700">Settings</span>
+          </button>
+          <hr class="my-2 border-gray-200">
+          <button
+            (click)="logout()"
+            class="w-full flex items-center space-x-3 px-4 py-2 text-left hover:bg-gray-50 transition-colors text-red-600"
+          >
+            <lucide-icon name="log-out" class="h-4 w-4"></lucide-icon>
+            <span class="text-sm">Sign Out</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

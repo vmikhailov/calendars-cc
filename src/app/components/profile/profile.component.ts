@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { ProfileService } from '../../services/profile.service';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -19,14 +19,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editableUser: User = {} as User;
   isEditing = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.userService.user$
+    this.profileService.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe(user => {
         this.user = user;
-        this.editableUser = { ...user };
+        this.editableUser = user ? { ...user } : this.createDefaultUser();
       });
   }
 
@@ -47,16 +47,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   startEdit(): void {
     this.isEditing = true;
-    this.editableUser = { ...this.user! };
+    this.editableUser = this.user ? { ...this.user } : this.createDefaultUser();
   }
 
   cancelEdit(): void {
     this.isEditing = false;
-    this.editableUser = { ...this.user! };
+    this.editableUser = this.user ? { ...this.user } : this.createDefaultUser();
   }
 
   saveProfile(): void {
-    this.userService.updateUser(this.editableUser);
+    this.profileService.updateUser(this.editableUser);
     this.isEditing = false;
   }
 
@@ -65,6 +65,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return this.isEditing
       ? `${baseClass} border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`
       : `${baseClass} border-gray-200 bg-gray-50 text-gray-700`;
+  }
+
+  private createDefaultUser(): User {
+    return {
+      id: '',
+      name: '',
+      email: '',
+      avatar: '',
+      company: '',
+      role: '',
+      timezone: '',
+      language: '',
+      joinedDate: '',
+      lastLogin: ''
+    };
   }
 
   formatDate(dateString?: string): string {

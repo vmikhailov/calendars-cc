@@ -1,16 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Code } from 'lucide-angular';
-import { ThemeService } from './services/theme.service';
+import { Subject, takeUntil, filter, Observable } from 'rxjs';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SyncLogsComponent } from './components/sync-logs/sync-logs.component';
-import { CalendarsComponent } from './components/calendars/calendars.component';
-import { RulesComponent } from './components/rules/rules.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { BillingComponent } from './components/billing/billing.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { NavigationService } from './services/navigation.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -18,52 +13,54 @@ import { NavigationService } from './services/navigation.service';
   imports: [
     CommonModule, 
     LucideAngularModule, 
-    NavigationComponent, 
-    DashboardComponent, 
-    SyncLogsComponent,
-    CalendarsComponent,
-    RulesComponent,
-    ProfileComponent,
-    BillingComponent,
-    SettingsComponent
+    NavigationComponent,
+    RouterOutlet
   ],
-  template: `
-    <div class="min-h-screen bg-gray-50 flex">
-      <app-navigation></app-navigation>
-      
-      <main [class]="getMainClass()">
-        <ng-container [ngSwitch]="activeSection">
-          <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>
-          <app-calendars *ngSwitchCase="'calendars'"></app-calendars>
-          <app-rules *ngSwitchCase="'rules'"></app-rules>
-          <app-sync-logs *ngSwitchCase="'logs'"></app-sync-logs>
-          <app-profile *ngSwitchCase="'profile'"></app-profile>
-          <app-billing *ngSwitchCase="'billing'"></app-billing>
-          <app-settings *ngSwitchCase="'settings'"></app-settings>
-          
-          <!-- Default case for unknown sections -->
-          <div *ngSwitchDefault class="text-center py-12">
-            <lucide-icon name="alert-circle" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Page Not Found</h3>
-            <p class="text-gray-600">The requested section could not be found</p>
-          </div>
-        </ng-container>
-      </main>
-    </div>
-  `
+  templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  
   activeSection = 'dashboard';
+  isAuthenticated = false;
 
   constructor(
     private navigationService: NavigationService,
-    private themeService: ThemeService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.navigationService.activeSection$.subscribe(section => {
-      this.activeSection = section;
-    });
+    // Listen to router events to update active section
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((event: NavigationEnd) => {
+        const url = event.urlAfterRedirects;
+        if (url.includes('/auth/')) {
+          return; // Don't update section for auth routes
+        }
+        
+        const section = url.substring(1) || 'dashboard';
+        this.activeSection = section;
+        this.navigationService.setActiveSection(section);
+      });
+
+    this.authService.authState$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(state => {
+        this.isAuthenticated = state.isAuthenticated;
+        if (!state.isAuthenticated && !this.router.url.includes('/auth/')) {
+          this.router.navigate(['/auth/login']);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   getMainClass(): string {

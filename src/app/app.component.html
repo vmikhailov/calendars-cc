@@ -1,0 +1,13 @@
+<!-- Main Application Layout -->
+<div *ngIf="isAuthenticated" class="min-h-screen bg-gray-50 flex">
+    <app-navigation></app-navigation>
+
+    <main [class]="getMainClass()">
+        <router-outlet></router-outlet>
+    </main>
+</div>
+
+<!-- Authentication Views (when not authenticated) -->
+<div *ngIf="!isAuthenticated">
+    <router-outlet></router-outlet>
+</div>
