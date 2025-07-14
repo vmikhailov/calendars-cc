@@ -15,10 +15,15 @@ sudo apt-get install -y nginx
 # Install Angular CLI globally
 sudo npm install -g @angular/cli
 
-# Set up UFW firewall
-sudo ufw allow OpenSSH
-sudo ufw allow 'Nginx Full'
-sudo ufw --force enable
+# Set up iptables firewall
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT      # Allow SSH
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT      # Allow HTTP
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT     # Allow HTTPS
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -j DROP                          # Drop all other inbound traffic
+# Save rules (Debian/Ubuntu)
+sudo mkdir -p /etc/iptables
+sudo sh -c "iptables-save > /etc/iptables/rules.v4"
 
 # Create deployment directory for calendars app
 sudo mkdir -p /var/www/calendars
