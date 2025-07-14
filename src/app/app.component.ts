@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // Listen to router events to update active section
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         takeUntil(this.destroy$)
       )
       .subscribe((event: NavigationEnd) => {
