@@ -1,176 +1,181 @@
-<div class="bg-white rounded-xl shadow-sm border border-gray-200 flex h-full">
+<div class="max-w-full mx-auto">
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Rules</h1>
+    <p class="text-gray-600">Create and manage synchronization rules</p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex h-full">
     <!-- Rules List Sidebar -->
     <div class="w-80 bg-white rounded-l-xl flex flex-col">
-        <div class="p-6 border-b border-gray-200 h-[120px] flex flex-col justify-center">
-            <div class="flex items-center justify-between mb-4">
-                <div>
-                    <h1 class="text-xl font-bold text-gray-900">Rules</h1>
-                    <p class="text-sm text-gray-600">Create and manage sync rules</p>
-                </div>
-                <button
-                        (click)="showNewRuleModal = true"
-                        class="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                    <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
-                </button>
-            </div>
+      <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Rule Library</h2>
+          <p class="text-sm text-gray-500 mt-1">{{ rules.length }} rules available</p>
         </div>
+        <button
+          (click)="showNewRuleModal = true"
+          class="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+        </button>
+      </div>
 
-        <div class="flex-1 overflow-y-auto p-4 space-y-3">
-            <div
-                    *ngFor="let rule of rules"
-                    (click)="selectRule(rule)"
-                    [class]="getRuleCardClass(rule)"
-            >
-                <div class="flex items-start justify-between mb-2">
-                    <div class="flex items-center space-x-2">
-                        <div [class]="'status-dot ' + getStatusColor(rule.status)"></div>
-                        <h3 class="font-medium text-gray-900 text-sm">{{ rule.name }}</h3>
-                    </div>
-                    <div class="flex items-center space-x-1">
-                        <button
-                                (click)="toggleRuleStatus(rule.id, $event)"
-                                class="p-1 text-gray-400 hover:text-blue-600 transition-colors"
-                        >
-                            <lucide-icon
-                                    [name]="rule.status === 'active' ? 'pause' : 'play'"
-                                    class="h-3 w-3"
-                            ></lucide-icon>
-                        </button>
-                        <button
-                                (click)="duplicateRule(rule, $event)"
-                                class="p-1 text-gray-400 hover:text-green-600 transition-colors"
-                        >
-                            <lucide-icon name="copy" class="h-3 w-3"></lucide-icon>
-                        </button>
-                        <button
-                                (click)="deleteRule(rule.id, $event)"
-                                class="p-1 text-gray-400 hover:text-red-600 transition-colors"
-                        >
-                            <lucide-icon name="trash-2" class="h-3 w-3"></lucide-icon>
-                        </button>
-                    </div>
-                </div>
-
-                <div>
-                    <p class="text-xs text-gray-600 mb-2">{{ rule.description }}</p>
-                </div>
-
-                <div class="flex items-center justify-between">
-              <span [class]="'inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs border ' + getTypeColor(rule.type)">
-                <lucide-icon [name]="getTypeIcon(rule.type)" class="h-3 w-3"></lucide-icon>
-                <span class="capitalize">{{ rule.type }}</span>
-              </span>
-                    <span class="text-xs text-gray-500">{{ rule.lastModified }}</span>
-                </div>
+      <div class="flex-1 overflow-y-auto p-4 space-y-3">
+        <div
+          *ngFor="let rule of rules"
+          (click)="selectRule(rule)"
+          [class]="getRuleCardClass(rule)"
+        >
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <div [class]="'status-dot ' + getStatusColor(rule.status)"></div>
+              <h3 class="font-medium text-gray-900 text-sm">{{ rule.name }}</h3>
             </div>
+            <div class="flex items-center space-x-1">
+              <button
+                (click)="toggleRuleStatus(rule.id, $event)"
+                class="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+              >
+                <lucide-icon
+                  [name]="rule.status === 'active' ? 'pause' : 'play'"
+                  class="h-3 w-3"
+                ></lucide-icon>
+              </button>
+              <button
+                (click)="duplicateRule(rule, $event)"
+                class="p-1 text-gray-400 hover:text-green-600 transition-colors"
+              >
+                <lucide-icon name="copy" class="h-3 w-3"></lucide-icon>
+              </button>
+              <button
+                (click)="deleteRule(rule.id, $event)"
+                class="p-1 text-gray-400 hover:text-red-600 transition-colors"
+              >
+                <lucide-icon name="trash-2" class="h-3 w-3"></lucide-icon>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs text-gray-600 mb-2">{{ rule.description }}</p>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span [class]="'inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs border ' + getTypeColor(rule.type)">
+              <lucide-icon [name]="getTypeIcon(rule.type)" class="h-3 w-3"></lucide-icon>
+              <span class="capitalize">{{ rule.type }}</span>
+            </span>
+            <span class="text-xs text-gray-500">{{ rule.lastModified }}</span>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Editor Area -->
     <div class="flex-1 flex flex-col min-w-0 bg-white rounded-r-xl border-l border-gray-200">
-        <div *ngIf="selectedRule; else noRuleSelected">
-            <!-- Editor Header -->
-            <div class="bg-white border-b border-gray-200 p-6 h-[120px] flex flex-col justify-center">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-900">{{ selectedRule.name }}</h2>
-                        <p class="text-sm text-gray-600 mt-1">{{ selectedRule.description }}</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <button
-                                *ngIf="isEditing"
-                                (click)="cancelEdit()"
-                                class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                                (click)="isEditing ? saveRule() : startEdit()"
-                                class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                        >
-                            <lucide-icon [name]="isEditing ? 'save' : 'code'" class="h-4 w-4"></lucide-icon>
-                            <span>{{ isEditing ? 'Save' : 'Edit' }}</span>
-                        </button>
-                    </div>
-                </div>
+      <div *ngIf="selectedRule; else noRuleSelected">
+        <!-- Editor Header -->
+        <div class="bg-white border-b border-gray-200 p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-900">{{ selectedRule.name }}</h2>
+              <p class="text-sm text-gray-600 mt-1">{{ selectedRule.description }}</p>
             </div>
-
-            <!-- Monaco Editor -->
-            <div class="flex-1 bg-gray-50 overflow-hidden">
-                <ngx-monaco-editor
-                        class="w-full h-full"
-                        [(ngModel)]="editorContent"
-                        [options]="editorOptions"
-                        (onInit)="onEditorInit($event)"
-                ></ngx-monaco-editor>
+            <div class="flex items-center space-x-3">
+              <button
+                *ngIf="isEditing"
+                (click)="cancelEdit()"
+                class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                (click)="isEditing ? saveRule() : startEdit()"
+                class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <lucide-icon [name]="isEditing ? 'save' : 'code'" class="h-4 w-4"></lucide-icon>
+                <span>{{ isEditing ? 'Save' : 'Edit' }}</span>
+              </button>
             </div>
+          </div>
         </div>
 
-        <ng-template #noRuleSelected>
-            <div class="flex-1 flex items-center justify-center bg-gray-50">
-                <div class="text-center">
-                    <lucide-icon name="code" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">No Rule Selected</h3>
-                    <p class="text-gray-600">Select a rule from the sidebar to view and edit its code</p>
-                </div>
-            </div>
-        </ng-template>
+        <!-- Monaco Editor -->
+        <div class="flex-1 bg-gray-50 overflow-hidden">
+          <ngx-monaco-editor
+            class="w-full h-full"
+            [(ngModel)]="editorContent"
+            [options]="editorOptions"
+            (onInit)="onEditorInit($event)"
+          ></ngx-monaco-editor>
+        </div>
+      </div>
+
+      <ng-template #noRuleSelected>
+        <div class="flex-1 flex items-center justify-center bg-gray-50">
+          <div class="text-center">
+            <lucide-icon name="code" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">No Rule Selected</h3>
+            <p class="text-gray-600">Select a rule from the sidebar to view and edit its code</p>
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <!-- New Rule Modal -->
     <div *ngIf="showNewRuleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Create New Rule</h3>
+      <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Create New Rule</h3>
 
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Rule Name</label>
-                    <input
-                            type="text"
-                            [(ngModel)]="newRule.name"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="e.g., Custom Filter Rule"
-                    />
-                </div>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Rule Name</label>
+            <input
+              type="text"
+              [(ngModel)]="newRule.name"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g., Custom Filter Rule"
+            />
+          </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea
-                            [(ngModel)]="newRule.description"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            rows="3"
-                            placeholder="Describe what this rule does..."
-                    ></textarea>
-                </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea
+              [(ngModel)]="newRule.description"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              rows="3"
+              placeholder="Describe what this rule does..."
+            ></textarea>
+          </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Rule Type</label>
-                    <select
-                            [(ngModel)]="newRule.type"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                        <option value="filter">Filter - Include/exclude events</option>
-                        <option value="transform">Transform - Modify event data</option>
-                        <option value="condition">Condition - Apply conditional logic</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="flex justify-end space-x-3 mt-6">
-                <button
-                        (click)="closeNewRuleModal()"
-                        class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-                >
-                    Cancel
-                </button>
-                <button
-                        (click)="createNewRule()"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                    Create Rule
-                </button>
-            </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Rule Type</label>
+            <select
+              [(ngModel)]="newRule.type"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="filter">Filter - Include/exclude events</option>
+              <option value="transform">Transform - Modify event data</option>
+              <option value="condition">Condition - Apply conditional logic</option>
+            </select>
+          </div>
         </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button
+            (click)="closeNewRuleModal()"
+            class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            (click)="createNewRule()"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Create Rule
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
