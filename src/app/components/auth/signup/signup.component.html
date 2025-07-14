@@ -1,0 +1,185 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+  <div class="max-w-md w-full">
+    <!-- Logo and Title -->
+    <div class="text-center mb-8">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl inline-block mb-4">
+        <lucide-icon name="calendar" class="h-8 w-8 text-white"></lucide-icon>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
+      <p class="text-gray-600">Join CalendarSync and start organizing your life</p>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <form (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Name Field -->
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+            Full Name
+          </label>
+          <div class="relative">
+            <input
+              id="name"
+              type="text"
+              [(ngModel)]="userData.name"
+              name="name"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              placeholder="Enter your full name"
+            />
+            <lucide-icon name="user" class="absolute right-3 top-3.5 h-5 w-5 text-gray-400"></lucide-icon>
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            Email Address
+          </label>
+          <div class="relative">
+            <input
+              id="email"
+              type="email"
+              [(ngModel)]="userData.email"
+              name="email"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              placeholder="Enter your email"
+            />
+            <lucide-icon name="user" class="absolute right-3 top-3.5 h-5 w-5 text-gray-400"></lucide-icon>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+            Password
+          </label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="userData.password"
+              name="password"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
+              placeholder="Create a password"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <lucide-icon [name]="showPassword ? 'eye-off' : 'eye'" class="h-5 w-5"></lucide-icon>
+            </button>
+          </div>
+          
+          <!-- Password Strength Indicator -->
+          <div *ngIf="userData.password" class="mt-2">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs text-gray-500">Password Strength</span>
+              <span class="text-xs font-medium" [class]="getPasswordStrength().color.replace('bg-', 'text-')">
+                {{ getPasswordStrength().strength }}
+              </span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1">
+              <div 
+                class="h-1 rounded-full transition-all duration-300"
+                [class]="getPasswordStrength().color"
+                [style.width]="getPasswordStrength().width"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div>
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">
+            Confirm Password
+          </label>
+          <div class="relative">
+            <input
+              id="confirmPassword"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              [(ngModel)]="userData.confirmPassword"
+              name="confirmPassword"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
+              placeholder="Confirm your password"
+              [class.border-red-300]="userData.confirmPassword && userData.password !== userData.confirmPassword"
+            />
+            <button
+              type="button"
+              (click)="toggleConfirmPasswordVisibility()"
+              class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <lucide-icon [name]="showConfirmPassword ? 'eye-off' : 'eye'" class="h-5 w-5"></lucide-icon>
+            </button>
+          </div>
+          <div *ngIf="userData.confirmPassword && userData.password !== userData.confirmPassword" 
+               class="mt-1 text-sm text-red-600">
+            Passwords do not match
+          </div>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="flex items-start space-x-3">
+          <input
+            id="terms"
+            type="checkbox"
+            [(ngModel)]="acceptTerms"
+            name="terms"
+            class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          />
+          <label for="terms" class="text-sm text-gray-700">
+            I agree to the 
+            <a href="#" class="text-blue-600 hover:text-blue-800">Terms of Service</a> 
+            and 
+            <a href="#" class="text-blue-600 hover:text-blue-800">Privacy Policy</a>
+          </label>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="error" class="bg-red-50 border border-red-200 rounded-lg p-3">
+          <div class="flex items-center space-x-2">
+            <lucide-icon name="alert-circle" class="h-4 w-4 text-red-500"></lucide-icon>
+            <span class="text-sm text-red-700">{{ error }}</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="loading || !isFormValid()"
+          class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+        >
+          <div *ngIf="loading" class="flex items-center justify-center space-x-2">
+            <lucide-icon name="loader" class="h-4 w-4 animate-spin"></lucide-icon>
+            <span>Creating Account...</span>
+          </div>
+          <span *ngIf="!loading">Create Account</span>
+        </button>
+      </form>
+
+      <!-- Login Link -->
+      <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+        <p class="text-sm text-gray-600">
+          Already have an account?
+          <button
+            (click)="navigateToLogin()"
+            class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors"
+          >
+            Sign in here
+          </button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-8">
+      <p class="text-sm text-gray-500">
+        © 2025 CalendarSync. All rights reserved.
+      </p>
+    </div>
+  </div>
+</div>

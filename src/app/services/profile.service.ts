@@ -1,20 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User, BillingPlan, PaymentMethod, Invoice, AppSettings } from '../models/user.model';
+import { AuthService } from './auth.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ProfileService {
-    private userSubject = new BehaviorSubject<User>({
-        id: '1',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        company: 'Acme Corp',
-        role: 'Product Manager',
-        timezone: 'America/New_York',
-        language: 'en',
-        joinedDate: '2023-06-15',
-        lastLogin: '2025-01-15 09:30'
-    });
+    private userSubject = new BehaviorSubject<User | null>(null);
 
     private billingPlansSubject = new BehaviorSubject<BillingPlan[]>([
         {
@@ -104,9 +95,34 @@ export class ProfileService {
     public invoices$ = this.invoicesSubject.asObservable();
     public settings$ = this.settingsSubject.asObservable();
 
+    constructor(private authService: AuthService) {
+        // Initialize user data from auth service
+        this.authService.authState$.subscribe(state => {
+            if (state.user) {
+                const user: User = {
+                    id: state.user.id,
+                    name: state.user.name,
+                    email: state.user.email,
+                    avatar: state.user.avatar,
+                    company: 'Acme Corp',
+                    role: 'Product Manager',
+                    timezone: 'America/New_York',
+                    language: 'en',
+                    joinedDate: '2023-06-15',
+                    lastLogin: '2025-01-15 09:30'
+                };
+                this.userSubject.next(user);
+            } else {
+                this.userSubject.next(null);
+            }
+        });
+    }
+
     updateUser(user: Partial<User>): void {
         const currentUser = this.userSubject.value;
-        this.userSubject.next({...currentUser, ...user});
+        if (currentUser) {
+            this.userSubject.next({ ...currentUser, ...user });
+        }
     }
 
     changePlan(planId: string): void {

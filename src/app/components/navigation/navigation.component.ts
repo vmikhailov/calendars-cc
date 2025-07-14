@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 import { NavigationService } from '../../services/navigation.service';
+import { AuthService } from '../../services/auth.service';
 import { menuItems, MenuItem } from '../../models/menu-item.model';
+import { AuthUser } from '../../models/auth.model';
 
 @Component({
   selector: 'app-navigation',
@@ -10,20 +13,39 @@ import { menuItems, MenuItem } from '../../models/menu-item.model';
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './navigation.component.html'
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  
   menuItems = menuItems;
   activeSection = 'dashboard';
+  user: AuthUser | null = null;
+  showUserMenu = false;
 
-  constructor(private navigationService: NavigationService) {}
+  constructor(
+    private navigationService: NavigationService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.navigationService.activeSection$.subscribe(section => {
       this.activeSection = section;
     });
+
+    this.authService.authState$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(state => {
+        this.user = state.user;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onSectionChange(section: string): void {
     this.navigationService.setActiveSection(section);
+    this.showUserMenu = false;
   }
 
   getButtonClass(itemId: string): string {
@@ -38,5 +60,24 @@ export class NavigationComponent implements OnInit {
     return this.activeSection === itemId
       ? `${baseClass} text-blue-600`
       : `${baseClass} text-gray-400 group-hover:text-gray-600`;
+  }
+
+  toggleUserMenu(): void {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.showUserMenu = false;
+  }
+
+  getUserInitials(): string {
+    if (!this.user?.name) return 'U';
+    return this.user.name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   }
 }

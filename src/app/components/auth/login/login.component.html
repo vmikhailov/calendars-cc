@@ -1,0 +1,126 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+  <div class="max-w-md w-full">
+    <!-- Logo and Title -->
+    <div class="text-center mb-8">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl inline-block mb-4">
+        <lucide-icon name="calendar" class="h-8 w-8 text-white"></lucide-icon>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+      <p class="text-gray-600">Sign in to your CalendarSync account</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <form (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            Email Address
+          </label>
+          <div class="relative">
+            <input
+              id="email"
+              type="email"
+              [(ngModel)]="credentials.email"
+              name="email"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              placeholder="Enter your email"
+            />
+            <lucide-icon name="user" class="absolute right-3 top-3.5 h-5 w-5 text-gray-400"></lucide-icon>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+            Password
+          </label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="credentials.password"
+              name="password"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <lucide-icon [name]="showPassword ? 'eye-off' : 'eye'" class="h-5 w-5"></lucide-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="error" class="bg-red-50 border border-red-200 rounded-lg p-3">
+          <div class="flex items-center space-x-2">
+            <lucide-icon name="alert-circle" class="h-4 w-4 text-red-500"></lucide-icon>
+            <span class="text-sm text-red-700">{{ error }}</span>
+          </div>
+        </div>
+
+        <!-- Demo Credentials Helper -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <lucide-icon name="info" class="h-4 w-4 text-blue-500"></lucide-icon>
+              <span class="text-sm text-blue-700">Demo Account Available</span>
+            </div>
+            <button
+              type="button"
+              (click)="fillDemoCredentials()"
+              class="text-sm text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Use Demo
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="loading || !credentials.email || !credentials.password"
+          class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+        >
+          <div *ngIf="loading" class="flex items-center justify-center space-x-2">
+            <lucide-icon name="loader" class="h-4 w-4 animate-spin"></lucide-icon>
+            <span>Signing In...</span>
+          </div>
+          <span *ngIf="!loading">Sign In</span>
+        </button>
+
+        <!-- Forgot Password Link -->
+        <div class="text-center">
+          <a href="#" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+            Forgot your password?
+          </a>
+        </div>
+      </form>
+
+      <!-- Sign Up Link -->
+      <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+        <p class="text-sm text-gray-600">
+          Don't have an account?
+          <button
+            (click)="navigateToSignup()"
+            class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors"
+          >
+            Sign up for free
+          </button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-8">
+      <p class="text-sm text-gray-500">
+        © 2025 CalendarSync. All rights reserved.
+      </p>
+    </div>
+  </div>
+</div>

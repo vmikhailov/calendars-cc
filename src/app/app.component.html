@@ -1,4 +1,14 @@
-<div class="min-h-screen bg-gray-50 flex">
+<!-- Authentication Views -->
+<div *ngIf="currentView === 'login'">
+    <app-login></app-login>
+</div>
+
+<div *ngIf="currentView === 'signup'">
+    <app-signup></app-signup>
+</div>
+
+<!-- Main Application -->
+<div *ngIf="currentView === 'app' && isAuthenticated" class="min-h-screen bg-gray-50 flex">
     <app-navigation></app-navigation>
 
     <main [class]="getMainClass()">
