@@ -20,7 +20,7 @@ git pull origin main
 npm i
 
 # Build Angular app
-#ng build --configuration production
+ng build --configuration production
 
 # Deploy build to server directory
 sudo rm -rf $DEPLOY_DIR/*
