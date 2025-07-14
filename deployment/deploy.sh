@@ -24,7 +24,7 @@ ng build --configuration production
 
 # Deploy build to server directory
 sudo rm -rf $DEPLOY_DIR/*
-sudo cp -r dist/calendars-cc/* $DEPLOY_DIR/
+sudo cp -r dist/calendars-cc/browser/* $DEPLOY_DIR/
 sudo chown -R $USER:$USER $DEPLOY_DIR
 
 # Nginx config
