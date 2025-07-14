@@ -17,7 +17,7 @@ cd $REPO_DIR
 git pull origin main
 
 # Install dependencies
-npm ci
+npm i
 
 # Build Angular app
 ng build --configuration production
