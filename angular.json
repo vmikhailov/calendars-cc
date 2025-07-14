@@ -67,7 +67,13 @@
               "extractLicenses": false,
               "sourceMap": true
             },
-            "mock": {
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -84,11 +90,11 @@
             "development": {
               "buildTarget": "calendars-cc:build:development"
             },
-            "mock": {
-              "buildTarget": "calendars-cc:build:mock"
+            "local": {
+              "buildTarget": "calendars-cc:build:local"
             }
           },
-          "defaultConfiguration": "mock"
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

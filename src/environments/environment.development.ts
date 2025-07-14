@@ -1,5 +1,5 @@
-console.log("development environment");
+console.log("development environment on mocks");
 
 export const environment = {
-    apiRoot: 'http://localhost:4000'
+    apiRoot: null
 }
