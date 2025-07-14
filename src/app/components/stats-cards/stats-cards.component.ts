@@ -13,9 +13,12 @@ import { AutoRefreshComponent } from "../../framework/auto-refresh.component";
 export class StatsCardsComponent extends AutoRefreshComponent implements OnInit {
     stats: Stat[] = [];
 
-    constructor(@Inject(STATS_API_SERVICE) private api: IStatsApiService) { super(); }
+    constructor(@Inject(STATS_API_SERVICE) private api: IStatsApiService) {
+        super();
+    }
 
     ngOnInit() {
-        this.startAutoRefresh(() => this.api.getStats().subscribe(data => this.stats = data), 5000);
+        this.startAutoRefresh(() =>
+            this.api.getStats().subscribe(data => this.stats = data), 5000);
     }
 }

@@ -55,8 +55,8 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
     settings: {
         root: '/api/settings',
         paths: {
-            get: '', // GET
-            update: '', // PUT
+            get: '',                // GET
+            update: '',             // PUT
         }
     },
 
