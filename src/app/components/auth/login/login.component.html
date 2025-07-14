@@ -6,7 +6,7 @@
         <lucide-icon name="calendar" class="h-8 w-8 text-white"></lucide-icon>
       </div>
       <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-      <p class="text-gray-600">Sign in to your CalendarSync account</p>
+      <p class="text-gray-600">Sign in to your Calendars.cc account</p>
     </div>
 
     <!-- Login Form -->
@@ -19,15 +19,17 @@
           </label>
           <div class="relative">
             <input
-              id="email"
-              type="email"
-              [(ngModel)]="credentials.email"
-              name="email"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
-              placeholder="Enter your email"
+                id="email"
+                type="email"
+                [(ngModel)]="credentials.email"
+                name="email"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                placeholder="Enter your email"
             />
-            <lucide-icon name="user" class="absolute right-3 top-3.5 h-5 w-5 text-gray-400"></lucide-icon>
+            <div class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors">
+              <lucide-icon name="user" class="h-5 w-5"></lucide-icon>
+            </div>
           </div>
         </div>
 
@@ -38,18 +40,18 @@
           </label>
           <div class="relative">
             <input
-              id="password"
-              [type]="showPassword ? 'text' : 'password'"
-              [(ngModel)]="credentials.password"
-              name="password"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
-              placeholder="Enter your password"
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                [(ngModel)]="credentials.password"
+                name="password"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
+                placeholder="Enter your password"
             />
             <button
-              type="button"
-              (click)="togglePasswordVisibility()"
-              class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors"
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <lucide-icon [name]="showPassword ? 'eye-off' : 'eye'" class="h-5 w-5"></lucide-icon>
             </button>
@@ -72,9 +74,9 @@
               <span class="text-sm text-blue-700">Demo Account Available</span>
             </div>
             <button
-              type="button"
-              (click)="fillDemoCredentials()"
-              class="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                type="button"
+                (click)="fillDemoCredentials()"
+                class="text-sm text-blue-600 hover:text-blue-800 font-medium"
             >
               Use Demo
             </button>
@@ -83,9 +85,9 @@
 
         <!-- Submit Button -->
         <button
-          type="submit"
-          [disabled]="loading || !credentials.email || !credentials.password"
-          class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+            type="submit"
+            [disabled]="loading || !credentials.email || !credentials.password"
+            class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
           <div *ngIf="loading" class="flex items-center justify-center space-x-2">
             <lucide-icon name="loader" class="h-4 w-4 animate-spin"></lucide-icon>
@@ -107,8 +109,8 @@
         <p class="text-sm text-gray-600">
           Don't have an account?
           <button
-            (click)="navigateToSignup()"
-            class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors"
+              (click)="navigateToSignup()"
+              class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors"
           >
             Sign up for free
           </button>
@@ -119,7 +121,7 @@
     <!-- Footer -->
     <div class="text-center mt-8">
       <p class="text-sm text-gray-500">
-        © 2025 CalendarSync. All rights reserved.
+        © 2025 Calendars.cc. All rights reserved.
       </p>
     </div>
   </div>

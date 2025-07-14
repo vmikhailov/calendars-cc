@@ -52,7 +52,7 @@ export class AuthService {
       delay(1000),
       map(() => {
         // Mock validation
-        if (credentials.email === 'demo@example.com' && credentials.password === 'password') {
+        if (credentials.email === 'demo@example.com' && credentials.password === 'df434234sadf331!@#!') {
           const response: AuthResponse = {
             user: {
               id: '1',

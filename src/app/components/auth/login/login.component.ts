@@ -8,70 +8,71 @@ import { AuthService } from '../../../services/auth.service';
 import { LoginRequest } from '../../../models/auth.model';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
-  templateUrl: './login.component.html'
+    selector: 'app-login',
+    standalone: true,
+    imports: [CommonModule, FormsModule, LucideAngularModule],
+    templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-  
-  credentials: LoginRequest = {
-    email: '',
-    password: ''
-  };
-  
-  showPassword = false;
-  loading = false;
-  error: string | null = null;
+    private destroy$ = new Subject<void>();
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+    credentials: LoginRequest = {
+        email: '',
+        password: ''
+    };
 
-  ngOnInit(): void {
-    this.authService.authState$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
-        this.loading = state.loading;
-        this.error = state.error;
-        
-        if (state.isAuthenticated) {
-          this.router.navigate(['/dashboard']);
-        }
-      });
-  }
+    showPassword = false;
+    loading = false;
+    error: string | null = null;
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  onSubmit(): void {
-    if (this.credentials.email && this.credentials.password) {
-      this.authService.login(this.credentials).subscribe({
-        next: () => {
-          // Navigation handled in ngOnInit
-        },
-        error: (error) => {
-          console.error('Login failed:', error);
-        }
-      });
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {
     }
-  }
 
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
+    ngOnInit(): void {
+        this.authService.authState$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(state => {
+                this.loading = state.loading;
+                this.error = state.error;
 
-  navigateToSignup(): void {
-    this.router.navigate(['/auth/signup']);
-  }
+                if (state.isAuthenticated) {
+                    this.router.navigate(['/dashboard']);
+                }
+            });
+    }
 
-  // Demo credentials helper
-  fillDemoCredentials(): void {
-    this.credentials.email = 'demo@example.com';
-    this.credentials.password = 'password';
-  }
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
+    onSubmit(): void {
+        if (this.credentials.email && this.credentials.password) {
+            this.authService.login(this.credentials).subscribe({
+                next: () => {
+                    // Navigation handled in ngOnInit
+                },
+                error: (error) => {
+                    console.error('Login failed:', error);
+                }
+            });
+        }
+    }
+
+    togglePasswordVisibility(): void {
+        this.showPassword = !this.showPassword;
+    }
+
+    navigateToSignup(): void {
+        this.router.navigate(['/auth/signup']);
+    }
+
+    // Demo credentials helper
+    fillDemoCredentials(): void {
+        this.credentials.email = 'demo@example.com';
+        this.credentials.password = 'df434234sadf331!@#!';
+    }
 }
