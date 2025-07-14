@@ -6,6 +6,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { LoginRequest } from '../../../models/auth.model';
+import { isReturningUser, markReturningUser } from '../../../tools';
 
 @Component({
     selector: 'app-login',
@@ -14,6 +15,7 @@ import { LoginRequest } from '../../../models/auth.model';
     templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit, OnDestroy {
+    isReturningUser = false;
     private destroy$ = new Subject<void>();
 
     credentials: LoginRequest = {
@@ -32,6 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        // Use tools.ts to detect returning user
+        this.isReturningUser = isReturningUser();
+
         this.authService.authState$
             .pipe(takeUntil(this.destroy$))
             .subscribe(state => {
@@ -39,6 +44,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.error = state.error;
 
                 if (state.isAuthenticated) {
+                    // Mark as returning user using tools.ts
+                    markReturningUser();
                     this.router.navigate(['/dashboard']);
                 }
             });
@@ -76,34 +83,34 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.credentials.password = 'df434234sadf331!@#!';
     }
 
-  // Social login methods
-  loginWithGoogle(): void {
-    // In a real app, this would integrate with Google OAuth
-    console.log('Login with Google');
-    // For demo purposes, simulate successful login
-    this.authService.login({
-      email: 'google.user@gmail.com',
-      password: 'df434234sadf331!@#!'
-    }).subscribe();
-  }
+    // Social login methods
+    loginWithGoogle(): void {
+        // In a real app, this would integrate with Google OAuth
+        console.log('Login with Google');
+        // For demo purposes, simulate successful login
+        this.authService.login({
+            email: 'google.user@gmail.com',
+            password: 'df434234sadf331!@#!'
+        }).subscribe();
+    }
 
-  loginWithMicrosoft(): void {
-    // In a real app, this would integrate with Microsoft OAuth
-    console.log('Login with Microsoft');
-    // For demo purposes, simulate successful login
-    this.authService.login({
-      email: 'microsoft.user@outlook.com',
-      password: 'df434234sadf331!@#!'
-    }).subscribe();
-  }
+    loginWithMicrosoft(): void {
+        // In a real app, this would integrate with Microsoft OAuth
+        console.log('Login with Microsoft');
+        // For demo purposes, simulate successful login
+        this.authService.login({
+            email: 'microsoft.user@outlook.com',
+            password: 'df434234sadf331!@#!'
+        }).subscribe();
+    }
 
-  loginWithGitHub(): void {
-    // In a real app, this would integrate with GitHub OAuth
-    console.log('Login with GitHub');
-    // For demo purposes, simulate successful login
-    this.authService.login({
-      email: 'github.user@github.com',
-      password: 'df434234sadf331!@#!'
-    }).subscribe();
-  }
+    loginWithGitHub(): void {
+        // In a real app, this would integrate with GitHub OAuth
+        console.log('Login with GitHub');
+        // For demo purposes, simulate successful login
+        this.authService.login({
+            email: 'github.user@github.com',
+            password: 'df434234sadf331!@#!'
+        }).subscribe();
+    }
 }
