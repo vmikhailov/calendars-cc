@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
 import { NavigationService } from '../../services/navigation.service';
@@ -23,7 +24,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     private navigationService: NavigationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   onSectionChange(section: string): void {
-    this.navigationService.setActiveSection(section);
+    this.router.navigate([`/${section}`]);
     this.showUserMenu = false;
   }
 
@@ -68,6 +70,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/auth/login']);
     this.showUserMenu = false;
   }
 
