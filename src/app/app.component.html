@@ -1,9 +1,16 @@
 <!-- Main Application Layout -->
 <div *ngIf="isAuthenticated" class="min-h-screen bg-gray-50 lg:h-screen lg:flex lg:overflow-hidden">
-    <!-- Navigation Component -->
-    <app-navigation></app-navigation>
+    <!-- Mobile Navigation -->
+    <div class="lg:hidden">
+        <app-navigation></app-navigation>
+    </div>
+    
+    <!-- Desktop Navigation -->
+    <div class="hidden lg:block">
+        <app-navigation></app-navigation>
+    </div>
 
-    <main [class]="getMainClass()">
+    <main [class]="getMainClass()" class="lg:overflow-y-auto lg:flex-1">
         <router-outlet></router-outlet>
     </main>
 </div>
