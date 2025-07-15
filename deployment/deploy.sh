@@ -46,7 +46,13 @@ sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
     listen 80;
     server_name calendars.cc;
-    return 301 https://$host$request_uri;
+
+    root /var/www/calendars;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
 }
 
 server {
