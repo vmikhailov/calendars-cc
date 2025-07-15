@@ -30,15 +30,27 @@ sudo chown -R $USER:$USER $DEPLOY_DIR
 
 # Nginx config
 sudo tee $NGINX_CONF > /dev/null <<EOF
+# HTTP → HTTPS redirect
 server {
     listen 80;
-    server_name _;
-    root $DEPLOY_DIR;
+    server_name calendars.cc;
 
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS server block
+server {
+    listen 443 ssl;
+    server_name calendars.cc;
+
+    root $DEPLOY_DIR;
     index index.html;
 
+    ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/calendars.cc/privkey.pem;
+
     location / {
-        try_files \$uri \$uri/ /index.html;
+        try_files $uri $uri/ /index.html;
     }
 
     location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
