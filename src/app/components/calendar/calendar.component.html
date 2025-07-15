@@ -1,5 +1,5 @@
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full">
-  <div class="flex items-center justify-between mb-6">
+  <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 mb-6">
     <div>
       <h2 class="text-xl font-semibold text-gray-900">{{ getViewTitle() }}</h2>
       <div class="text-sm text-gray-500 mt-1">
@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+    <div class="grid grid-cols-2 gap-1 lg:flex lg:items-center lg:space-x-1 lg:grid-cols-none bg-gray-100 rounded-lg p-1">
       <button
         *ngFor="let view of views"
         (click)="setActiveView(view.id)"
