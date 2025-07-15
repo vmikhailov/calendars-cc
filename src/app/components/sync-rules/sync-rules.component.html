@@ -1,19 +1,19 @@
-<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full">
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-full w-full relative z-0">
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-xl font-semibold text-gray-900">Sync Rules</h2>
     <button 
       (click)="showAddModal = true"
-      class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+      class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors relative z-10"
     >
       <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
       <span>Add Rule</span>
     </button>
   </div>
   
-  <div class="space-y-4 flex-1 overflow-y-auto">
+  <div class="space-y-4 flex-1 overflow-y-auto relative z-0">
     <div
       *ngFor="let rule of syncRules"
-      class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all card-hover"
+      class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all card-hover relative z-0"
     >
       <div class="flex items-center justify-between mb-3">
         <div class="flex items-center space-x-3">
@@ -54,8 +54,8 @@
   </div>
   
   <!-- Add Modal -->
-  <div *ngIf="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+  <div *ngIf="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60]">
+    <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4 relative z-[70]">
       <h3 class="text-lg font-semibold text-gray-900 mb-4">New Sync Rule</h3>
       
       <div class="space-y-4">
