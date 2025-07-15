@@ -4,7 +4,7 @@ import {
   CheckCircle, XCircle, AlertTriangle, AlertCircle, Info, Check, X,
   Plus, Trash2, Play, Pause, RefreshCw, Save, Copy, Upload, Edit, Download, Filter, Loader,
   ArrowRight, Calendar, CalendarDays, Clock, MapPin, Settings, FileText, Code, CreditCard, Package,
-  Sun, Moon, Monitor, Eye, EyeOff, LogOut, ChevronUp
+  Sun, Moon, Monitor, Eye, EyeOff, LogOut, ChevronUp, Menu
 } from 'lucide-angular';
 
 // User & People Icons
@@ -18,7 +18,7 @@ export const actionIcons = { Plus, Trash2, Play, Pause, RefreshCw, Save, Copy, U
 
 // Navigation & Interface Icons
 export const navigationIcons = {
-  ArrowRight, Calendar, CalendarDays, Clock, MapPin, Settings, FileText, Code, CreditCard, Package
+  ArrowRight, Calendar, CalendarDays, Clock, MapPin, Settings, FileText, Code, CreditCard, Package, Menu
 };
 
 // System & Theme Icons

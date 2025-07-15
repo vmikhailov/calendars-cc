@@ -21,6 +21,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   activeSection = 'dashboard';
   user: AuthUser | null = null;
   showUserMenu = false;
+  isMobileMenuOpen = false;
 
   constructor(
     private navigationService: NavigationService,
@@ -82,5 +83,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .join('')
       .toUpperCase()
       .slice(0, 2);
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+
+  onMobileSectionChange(section: string): void {
+    this.onSectionChange(section);
+    this.closeMobileMenu();
   }
 }
