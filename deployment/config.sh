@@ -12,7 +12,7 @@ set -e
 sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
     listen 80;
-    server_name _;
+    server_name calendars.cc;
     root $DEPLOY_DIR;
 
     index index.html;
@@ -27,6 +27,7 @@ server {
         add_header Cache-Control "public";
     }
 }
+
 EOF
 
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/calendars
