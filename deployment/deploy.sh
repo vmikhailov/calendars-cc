@@ -29,7 +29,7 @@ fi
 echo "deploy.sh is the same, continuing..."
 
 # Install dependencies
-npm i
+npm ci
 #npm audit fix --force
 
 # Build Angular app
