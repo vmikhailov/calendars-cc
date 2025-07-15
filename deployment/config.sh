@@ -11,8 +11,7 @@ set -e
 # Nginx config
 sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
-server {
-    listen 80;
+    listen 80 default_server;
     server_name _;
     return 301 https://$host$request_uri;
 }
