@@ -110,7 +110,7 @@ export class CalendarComponent {
     }
 
     getViewButtonClass(viewId: string): string {
-        const baseClass = 'px-3 py-1 text-sm rounded transition-all';
+        const baseClass = 'px-3 py-2 lg:py-1 text-sm rounded transition-all font-medium';
         return this.activeView === viewId
             ? `${baseClass} bg-white shadow text-gray-900`
             : `${baseClass} text-gray-600 hover:text-gray-900`;
