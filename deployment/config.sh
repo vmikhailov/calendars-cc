@@ -13,19 +13,7 @@ sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
     listen 80;
     server_name calendars.cc;
-    root $DEPLOY_DIR;
-
-    index index.html;
-
-    location / {
-        try_files \$uri \$uri/ /index.html;
-    }
-
-    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
-        expires 1M;
-        access_log off;
-        add_header Cache-Control "public";
-    }
+    return 301 https://$server_name$request_uri;
 }
 
 server {
