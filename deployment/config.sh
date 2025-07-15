@@ -11,8 +11,9 @@ set -e
 # Nginx config
 sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
-    listen 80;
-    server_name calendars.cc;
+server {
+    listen 80 default_server;
+    server_name _;
     return 301 https://$host$request_uri;
 }
 
