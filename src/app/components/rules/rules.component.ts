@@ -11,7 +11,8 @@ import { Rule } from '../../models/rule.model';
   selector: 'app-rules',
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule, MonacoEditorModule],
-  templateUrl: './rules.component.html'
+  templateUrl: './rules.component.html',
+  styleUrls: ['./rules.component.css'] 
 })
 export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
   private destroy$ = new Subject<void>();
