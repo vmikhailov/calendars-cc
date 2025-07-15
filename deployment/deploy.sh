@@ -28,12 +28,9 @@ fi
 
 echo "deploy.sh is the same, continuing..."
 
-cd $REPO_DIR
-git pull origin main
-
 # Install dependencies
 npm i
-npm audit fix
+npm audit fix --force
 
 # Build Angular app
 ng build --configuration production
