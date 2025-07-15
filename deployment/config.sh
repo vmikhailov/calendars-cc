@@ -12,7 +12,7 @@ set -e
 sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
 server {
-    listen 80 default_server;
+    listen 80;
     server_name _;
     return 301 https://$host$request_uri;
 }
