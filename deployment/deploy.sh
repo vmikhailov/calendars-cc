@@ -17,7 +17,7 @@ if [ ! -d "$REPO_DIR/.git" ]; then
 fi
 
 cd $REPO_DIR
-git pull origin main
+git pull origin prod
 
 AFTER_MTIME=$(stat -c %Y "$SCRIPT_PATH")
 
@@ -46,7 +46,7 @@ sudo tee $NGINX_CONF > /dev/null <<EOF
 server {
     listen 80;
     server_name calendars.cc;
-    return 301 https://$host$request_uri;
+    return 301 https://$server_name$request_uri;
 }
 
 server {
