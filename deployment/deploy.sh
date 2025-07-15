@@ -30,7 +30,7 @@ echo "deploy.sh is the same, continuing..."
 
 # Install dependencies
 npm i
-npm audit fix --force
+#npm audit fix --force
 
 # Build Angular app
 ng build --configuration production
