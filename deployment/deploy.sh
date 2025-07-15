@@ -1,12 +1,15 @@
 #!/bin/bash
 
-set -e
-
 # Variables
 REPO_URL="https://github.com/vmikhailov/calendars-cc.git"
 REPO_DIR=~/Projects/calendars-cc
 DEPLOY_DIR=/var/www/calendars
 NGINX_CONF=/etc/nginx/sites-available/calendars
+
+set -e
+
+SCRIPT_PATH="$(realpath "$0")"
+BEFORE_MTIME=$(stat -c %Y "$SCRIPT_PATH")
 
 # Clone or update repo
 if [ ! -d "$REPO_DIR/.git" ]; then
@@ -16,8 +19,21 @@ fi
 cd $REPO_DIR
 git pull origin main
 
+AFTER_MTIME=$(stat -c %Y "$SCRIPT_PATH")
+
+if [ "$AFTER_MTIME" != "$BEFORE_MTIME" ]; then
+  echo "deploy.sh updated, re-executing..."
+  exec "$SCRIPT_PATH" "$@"
+fi
+
+echo "deploy.sh is the same, continuing..."
+
+cd $REPO_DIR
+git pull origin main
+
 # Install dependencies
 npm i
+npm audit fix
 
 # Build Angular app
 ng build --configuration production
@@ -30,20 +46,17 @@ sudo chown -R $USER:$USER $DEPLOY_DIR
 
 # Nginx config
 sudo tee $NGINX_CONF > /dev/null <<EOF
-# HTTP → HTTPS redirect
 server {
     listen 80;
     server_name calendars.cc;
-
     return 301 https://$host$request_uri;
 }
 
-# HTTPS server block
 server {
     listen 443 ssl;
     server_name calendars.cc;
 
-    root $DEPLOY_DIR;
+    root /var/www/calendars;
     index index.html;
 
     ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
@@ -51,12 +64,6 @@ server {
 
     location / {
         try_files $uri $uri/ /index.html;
-    }
-
-    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
-        expires 1M;
-        access_log off;
-        add_header Cache-Control "public";
     }
 }
 EOF
