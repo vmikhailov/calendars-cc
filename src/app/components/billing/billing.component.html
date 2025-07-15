@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+            <div class="grid grid-cols-3 gap-1 lg:flex lg:items-center lg:space-x-1 lg:grid-cols-none bg-gray-100 rounded-lg p-1">
                 <button
                         *ngFor="let tab of tabs"
                         (click)="setActiveTab(tab.id)"
