@@ -1,0 +1,16 @@
+@media (min-width: 1024px) {
+    .rules-sidebar-lg-rounded {
+        border-top-left-radius: 0.75rem !important;
+        border-bottom-left-radius: 0.75rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .rules-editor-container-responsive-height {
+        height: calc(100% - 100px) !important;
+    }
+
+     .rules-editor-responsive-height {
+        height: 100% !important;
+    }
+}
