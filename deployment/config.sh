@@ -21,21 +21,6 @@ server {
         try_files $uri $uri/ /index.html;
     }
 }
-
-server {
-    listen 443 ssl;
-    server_name calendars.cc;
-
-    root /var/www/calendars;
-    index index.html;
-
-    ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/calendars.cc/privkey.pem;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
 EOF
 
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/calendars
