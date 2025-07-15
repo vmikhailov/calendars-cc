@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getMainClass(): string {
-    const baseClasses = 'pt-20 lg:pt-0 p-5 lg:ml-64 lg:overflow-y-auto lg:flex-1';
+    const baseClasses = 'pt-20 lg:pt-5 p-5 lg:ml-64 lg:overflow-y-auto lg:flex-1';
     const flexClasses = this.activeSection === 'logs' || this.activeSection === 'rules' || this.activeSection === 'calendars'
       ? ' flex flex-col'
       : '';
