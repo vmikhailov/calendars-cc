@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule } from 'lucide-angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faPlus, faPause, faPlay, faCopy, faTrash, faFileAlt, faCog, faCode } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { Subject, takeUntil } from 'rxjs';
 import { RulesService } from '../../services/rules.service';
@@ -10,7 +13,7 @@ import { Rule } from '../../models/rule.model';
 @Component({
   selector: 'app-rules',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule, MonacoEditorModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, MonacoEditorModule],
   templateUrl: './rules.component.html'
 })
 export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -43,22 +46,34 @@ export class RulesComponent implements OnInit, OnDestroy, AfterViewInit {
     type: 'filter' as 'filter' | 'transform' | 'condition'
   };
 
-  constructor(private rulesService: RulesService) {}
+  // FontAwesome icon references
+  faPlus: IconDefinition = faPlus;
+  faPause: IconDefinition = faPause;
+  faPlay: IconDefinition = faPlay;
+  faCopy: IconDefinition = faCopy;
+  faTrash: IconDefinition = faTrash;
+  faFileText: IconDefinition = faFileAlt;
+  faSettings: IconDefinition = faCog;
+  faCode: IconDefinition = faCode;
+
+  constructor(private rulesService: RulesService, library: FaIconLibrary) {
+    library.addIcons(faPlus, faPause, faPlay, faCopy, faTrash, faFileAlt, faCog, faCode);
+  }
 
   ngOnInit(): void {
     this.rulesService.getRules()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(rules => {
-          this.rules = rules;
-        });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(rules => {
+        this.rules = rules;
+      });
 
     this.rulesService.getSelectedRule()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(rule => {
-          this.selectedRule = rule;
-          this.updateEditorContent();
-          this.updateEditorOptions();
-        });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(rule => {
+        this.selectedRule = rule;
+        this.updateEditorContent();
+        this.updateEditorOptions();
+      });
   }
 
   ngAfterViewInit(): void {
@@ -171,8 +186,8 @@ return ${this.newRule.type}Rule(event);`
   getRuleCardClass(rule: Rule): string {
     const baseClass = 'p-4 rounded-lg border cursor-pointer transition-all hover:shadow-sm';
     return this.selectedRule?.id === rule.id
-        ? `${baseClass} border-blue-500 bg-blue-50`
-        : `${baseClass} border-gray-200 hover:border-gray-300 hover:bg-gray-50`;
+      ? `${baseClass} border-blue-500 bg-blue-50`
+      : `${baseClass} border-gray-200 hover:border-gray-300 hover:bg-gray-50`;
   }
 
   getStatusColor(status: string): string {
@@ -184,12 +199,12 @@ return ${this.newRule.type}Rule(event);`
     }
   }
 
-  getTypeIcon(type: string): string {
+  getTypeIcon(type: string): IconDefinition {
     switch (type) {
-      case 'filter': return 'file-text';
-      case 'transform': return 'settings';
-      case 'condition': return 'code';
-      default: return 'code';
+      case 'filter': return this.faFileText;
+      case 'transform': return this.faSettings;
+      case 'condition': return this.faCode;
+      default: return this.faCode;
     }
   }
 

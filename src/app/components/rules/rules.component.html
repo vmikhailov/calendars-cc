@@ -4,7 +4,8 @@
     <p class="text-gray-600">Create and manage synchronization rules</p>
   </div>
 
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col lg:flex-row flex-1 min-h-0 lg:h-[85vh]">
+  <div
+    class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col lg:flex-row flex-1 min-h-0 lg:h-[85vh]">
     <!-- Rules List Sidebar -->
     <div id="rules-list" class="w-full lg:w-80 bg-white lg:rounded-l-xl flex flex-col lg:h-full">
       <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -14,7 +15,7 @@
         </div>
         <button (click)="showNewRuleModal = true"
           class="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors">
-          <lucide-icon name="plus" class="h-4 w-4"></lucide-icon>
+          <fa-icon [icon]="faPlus" class="h-4 w-4"></fa-icon>
         </button>
       </div>
 
@@ -28,15 +29,15 @@
             <div class="flex items-center space-x-1">
               <button (click)="toggleRuleStatus(rule.id, $event)"
                 class="p-1 text-gray-400 hover:text-blue-600 transition-colors">
-                <lucide-icon [name]="rule.status === 'active' ? 'pause' : 'play'" class="h-3 w-3"></lucide-icon>
+                <fa-icon [icon]="rule.status === 'active' ? faPause : faPlay" class="h-3 w-3"></fa-icon>
               </button>
               <button (click)="duplicateRule(rule, $event)"
                 class="p-1 text-gray-400 hover:text-green-600 transition-colors">
-                <lucide-icon name="copy" class="h-3 w-3"></lucide-icon>
+                <fa-icon [icon]="faCopy" class="h-3 w-3"></fa-icon>
               </button>
               <button (click)="deleteRule(rule.id, $event)"
                 class="p-1 text-gray-400 hover:text-red-600 transition-colors">
-                <lucide-icon name="trash-2" class="h-3 w-3"></lucide-icon>
+                <fa-icon [icon]="faTrash" class="h-3 w-3"></fa-icon>
               </button>
             </div>
           </div>
@@ -48,7 +49,7 @@
           <div class="flex items-center justify-between">
             <span
               [class]="'inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs border ' + getTypeColor(rule.type)">
-              <lucide-icon [name]="getTypeIcon(rule.type)" class="h-3 w-3"></lucide-icon>
+              <fa-icon [icon]="getTypeIcon(rule.type)" class="h-3 w-3"></fa-icon>
               <span class="capitalize">{{ rule.type }}</span>
             </span>
             <span class="text-xs text-gray-500">{{ rule.lastModified }}</span>
@@ -58,7 +59,8 @@
     </div>
 
     <!-- Editor Area -->
-    <div id="editor-area" class="flex-1 flex flex-col min-w-0 bg-white lg:rounded-r-xl lg:border-l border-gray-200 lg:h-full">
+    <div id="editor-area"
+      class="flex-1 flex flex-col min-w-0 bg-white lg:rounded-r-xl lg:border-l border-gray-200 lg:h-full">
       <div *ngIf="selectedRule; else noRuleSelected" class="h-full">
         <!-- Editor Header -->
         <div class="bg-white border-b border-gray-200 p-6">
@@ -74,7 +76,7 @@
               </button>
               <button (click)="isEditing ? saveRule() : startEdit()"
                 class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                <lucide-icon [name]="isEditing ? 'save' : 'code'" class="h-4 w-4"></lucide-icon>
+                <fa-icon [icon]="isEditing ? faFileText : faCode" class="h-4 w-4"></fa-icon>
                 <span>{{ isEditing ? 'Save' : 'Edit' }}</span>
               </button>
             </div>
@@ -83,15 +85,16 @@
 
         <!-- Monaco Editor -->
         <div class="flex-1 overflow-hidden lg:rounded-br-xl" style="height: 400px; lg:height: calc(100vh - 280px);">
-          <ngx-monaco-editor class="w-full h-full lg:rounded-br-xl overflow-hidden" style="height: 400px; lg:height: calc(100vh - 280px);" [(ngModel)]="editorContent"
-            [options]="editorOptions" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
+          <ngx-monaco-editor class="w-full h-full lg:rounded-br-xl overflow-hidden"
+            style="height: 400px; lg:height: calc(100vh - 280px);" [(ngModel)]="editorContent" [options]="editorOptions"
+            (onInit)="onEditorInit($event)"></ngx-monaco-editor>
         </div>
       </div>
 
       <ng-template #noRuleSelected>
         <div class="flex-1 flex items-center justify-center bg-gray-50">
           <div class="text-center">
-            <lucide-icon name="code" class="h-12 w-12 text-gray-300 mx-auto mb-4"></lucide-icon>
+            <fa-icon [icon]="faCode" class="h-12 w-12 text-gray-300 mx-auto mb-4"></fa-icon>
             <h3 class="text-lg font-semibold text-gray-900 mb-2">No Rule Selected</h3>
             <p class="text-gray-600">Select a rule from the sidebar to view and edit its code</p>
           </div>
