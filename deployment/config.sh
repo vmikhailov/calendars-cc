@@ -9,30 +9,7 @@ NGINX_CONF=/etc/nginx/sites-available/calendars
 set -e
 
 # Nginx config
-sudo tee $NGINX_CONF > /dev/null <<EOF
-server {
-    listen 80 default_server;
-    server_name calendars.cc www.calendars.cc;
-    return 301 https://calendars.cc$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    server_name calendars.cc;
-
-    root $DEPLOY_DIR;
-    index index.html;
-
-    ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/calendars.cc/privkey.pem;
-
-    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
-            expires 1M;
-            access_log off;
-            add_header Cache-Control "public";
-    }
-}
-EOF
+cp deployment/nginx.conf $NGINX_CONF
 
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/calendars
 sudo nginx -t
