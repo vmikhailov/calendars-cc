@@ -32,7 +32,7 @@ server {
     listen 443 ssl;
     server_name calendars.cc;
 
-    root /var/www/calendars;
+    root $DEPLOY_DIR;
     index index.html;
 
     ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
