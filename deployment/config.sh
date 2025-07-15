@@ -38,8 +38,10 @@ server {
     ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/calendars.cc/privkey.pem;
 
-    location / {
-        try_files $uri $uri/ /index.html;
+    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?|ttf|eot)$ {
+            expires 1M;
+            access_log off;
+            add_header Cache-Control "public";
     }
 }
 EOF
