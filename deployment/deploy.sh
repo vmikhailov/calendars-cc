@@ -17,7 +17,7 @@ if [ ! -d "$REPO_DIR/.git" ]; then
 fi
 
 cd $REPO_DIR
-git pull origin main
+git pull origin prod
 
 AFTER_MTIME=$(stat -c %Y "$SCRIPT_PATH")
 
@@ -29,7 +29,7 @@ fi
 echo "deploy.sh is the same, continuing..."
 
 # Install dependencies
-npm i
+npm ci
 #npm audit fix --force
 
 # Build Angular app
@@ -42,34 +42,7 @@ sudo cp -r dist/calendars-cc/browser/* $DEPLOY_DIR/
 sudo chown -R $USER:$USER $DEPLOY_DIR
 
 # Nginx config
-sudo tee $NGINX_CONF > /dev/null <<EOF
-server {
-    listen 80;
-    server_name calendars.cc;
-
-    root /var/www/calendars;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-
-server {
-    listen 443 ssl;
-    server_name calendars.cc;
-
-    root /var/www/calendars;
-    index index.html;
-
-    ssl_certificate /etc/letsencrypt/live/calendars.cc/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/calendars.cc/privkey.pem;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-EOF
+cp deployment/nginx.conf $NGINX_CONF
 
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/calendars
 sudo nginx -t
