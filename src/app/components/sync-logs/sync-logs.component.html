@@ -4,8 +4,8 @@
     <p class="text-gray-600">Monitor synchronization activity and troubleshoot issues</p>
   </div>
 
-  <div class="h-full flex flex-col">
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-full">
+  <div class="flex flex-col lg:h-full">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col lg:h-full">
       <div class="p-6 border-b border-gray-200">
         <div class="flex items-center justify-between">
           <h2 class="text-lg font-semibold text-gray-900">Activity Log</h2>
@@ -28,7 +28,7 @@
         </div>
       </div>
       
-      <div class="flex-1 overflow-y-auto">
+      <div class="flex-1 lg:overflow-y-auto">
         <div class="space-y-3 p-6">
           <div
             *ngFor="let log of filteredLogs"

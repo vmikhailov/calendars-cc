@@ -1,5 +1,5 @@
 <!-- Main Application Layout -->
-<div *ngIf="isAuthenticated" class="h-screen bg-gray-50 lg:flex overflow-hidden">
+<div *ngIf="isAuthenticated" class="min-h-screen bg-gray-50 lg:h-screen lg:flex lg:overflow-hidden">
     <!-- Mobile Navigation -->
     <div class="lg:hidden">
         <app-navigation></app-navigation>
@@ -10,7 +10,7 @@
         <app-navigation></app-navigation>
     </div>
 
-    <main [class]="getMainClass()" class="overflow-y-auto lg:flex-1">
+    <main [class]="getMainClass()" class="lg:overflow-y-auto lg:flex-1">
         <router-outlet></router-outlet>
     </main>
 </div>

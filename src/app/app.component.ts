@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   getMainClass(): string {
     return this.activeSection === 'logs' || this.activeSection === 'rules' || this.activeSection === 'calendars'
-      ? 'flex-1 p-5 flex flex-col'
-      : 'flex-1 p-5';
+      ? 'p-5 flex flex-col lg:flex-1'
+      : 'p-5 lg:flex-1';
   }
 }
