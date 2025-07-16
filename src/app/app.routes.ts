@@ -9,12 +9,13 @@ import { SyncLogsComponent } from './components/sync-logs/sync-logs.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BillingComponent } from './components/billing/billing.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { TechInfoComponent } from './components/tech-info/tech-info.component';
 
 export const routes: Routes = [
   // Auth routes
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/signup', component: SignupComponent },
-  
+
   // Protected main app routes
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'calendars', component: CalendarsComponent, canActivate: [AuthGuard] },
@@ -23,7 +24,8 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'billing', component: BillingComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  
+  { path: 'tech-info', component: TechInfoComponent, canActivate: [AuthGuard] },
+
   // Default redirects
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard' }

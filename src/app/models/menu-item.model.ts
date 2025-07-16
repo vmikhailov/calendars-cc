@@ -47,5 +47,11 @@ export const menuItems: MenuItem[] = [
     label: 'Sync Logs',
     icon: 'file-text',
     description: 'View synchronization history and status'
+  },
+  {
+    id: 'tech-info',
+    label: 'Technical Info',
+    icon: 'info',
+    description: 'Node, npm, and Angular version details'
   }
 ];

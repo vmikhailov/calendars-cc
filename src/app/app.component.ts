@@ -4,6 +4,7 @@ import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LucideAngularModule, Calendar, User, CreditCard, Settings, FileText, Code } from 'lucide-angular';
 import { Subject, takeUntil, filter, Observable } from 'rxjs';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { TechInfoComponent } from './components/tech-info/tech-info.component';
 import { NavigationService } from './services/navigation.service';
 import { AuthService } from './services/auth.service';
 
@@ -11,8 +12,8 @@ import { AuthService } from './services/auth.service';
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule, 
-    LucideAngularModule, 
+    CommonModule,
+    LucideAngularModule,
     NavigationComponent,
     RouterOutlet
   ],
@@ -20,7 +21,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  
+
   activeSection = 'dashboard';
   isAuthenticated = false;
 
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Listen to router events to update active section
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (url.includes('/auth/')) {
           return; // Don't update section for auth routes
         }
-        
+
         const section = url.substring(1) || 'dashboard';
         this.activeSection = section;
         this.navigationService.setActiveSection(section);
