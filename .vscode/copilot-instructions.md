@@ -24,6 +24,7 @@ This document defines the documentation standards and practices for maintaining 
 - Project structure overview
 - Data flow diagrams
 - Security considerations
+- Always refer to API_SERVICES.md for API service structure and conventions
 
 #### DEPLOYMENT.md Requirements
 - Deployment architecture diagram (Mermaid)
