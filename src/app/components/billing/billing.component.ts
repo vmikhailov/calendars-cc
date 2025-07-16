@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
-import { ProfileService } from '../../services/profile.service';
+import { BillingService } from '../../services/billing.service';
 import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
 
 @Component({
@@ -13,7 +13,7 @@ import { BillingPlan, PaymentMethod, Invoice } from '../../models/user.model';
 })
 export class BillingComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  
+
   activeTab: 'overview' | 'plans' | 'history' = 'overview';
   billingPlans: BillingPlan[] = [];
   paymentMethods: PaymentMethod[] = [];
@@ -21,23 +21,23 @@ export class BillingComponent implements OnInit, OnDestroy {
   currentPlan: BillingPlan | null = null;
   showAddPayment = false;
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private billingService: BillingService) { }
 
   ngOnInit(): void {
-    this.profileService.billingPlans$
+    this.billingService.billingPlans$
       .pipe(takeUntil(this.destroy$))
       .subscribe(plans => {
         this.billingPlans = plans;
         this.currentPlan = plans.find(p => p.current) || null;
       });
 
-    this.profileService.paymentMethods$
+    this.billingService.paymentMethods$
       .pipe(takeUntil(this.destroy$))
       .subscribe(methods => {
         this.paymentMethods = methods;
       });
 
-    this.profileService.invoices$
+    this.billingService.invoices$
       .pipe(takeUntil(this.destroy$))
       .subscribe(invoices => {
         this.invoices = invoices;
@@ -50,7 +50,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   changePlan(planId: string): void {
-    this.profileService.changePlan(planId);
+    this.billingService.changePlan(planId);
     this.setActiveTab('overview');
   }
 
@@ -64,17 +64,17 @@ export class BillingComponent implements OnInit, OnDestroy {
       expiryYear: 2027,
       isDefault: this.paymentMethods.length === 0
     };
-    
-    this.profileService.addPaymentMethod(newMethod);
+
+    this.billingService.addPaymentMethod(newMethod);
     this.showAddPayment = false;
   }
 
   removePaymentMethod(methodId: string): void {
-    this.profileService.removePaymentMethod(methodId);
+    this.billingService.removePaymentMethod(methodId);
   }
 
   setDefaultPayment(methodId: string): void {
-    this.profileService.setDefaultPaymentMethod(methodId);
+    this.billingService.setDefaultPaymentMethod(methodId);
   }
 
   setActiveTab(tab: 'overview' | 'plans' | 'history'): void {

@@ -1,4 +1,6 @@
+
 import { Observable } from 'rxjs';
+import { InjectionToken } from '@angular/core';
 import { AppSettings } from '../../models/user.model';
 
 export interface ISettingsApiService {
@@ -6,4 +8,4 @@ export interface ISettingsApiService {
     updateSettings(settings: AppSettings): Observable<AppSettings>;
 }
 
-export const SETTINGS_API_SERVICE = 'SETTINGS_API_SERVICE';
+export const SETTINGS_API_SERVICE = new InjectionToken<ISettingsApiService>('SettingsApiService');

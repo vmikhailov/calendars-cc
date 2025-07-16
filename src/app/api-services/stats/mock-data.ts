@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Stat, IStatsApiService } from './interface';
+import { Stat } from './interface';
 
-const MOCK_STATS: Stat[] = [
+export const MOCK_STATS: Stat[] = [
     {
         title: 'Active Rules',
         value: '20',
@@ -36,10 +34,3 @@ const MOCK_STATS: Stat[] = [
         textColor: 'text-yellow-700'
     }
 ];
-
-@Injectable({ providedIn: 'root' })
-export class StatsApiMockService implements IStatsApiService {
-    getStats(): Observable<Stat[]> {
-        return of(MOCK_STATS);
-    }
-}
