@@ -16,6 +16,7 @@ export interface ApiConfig {
     rules: ApiEndpointConfig;
     stats: ApiEndpointConfig;
     calendar: ApiEndpointConfig;
+    billing: ApiEndpointConfig;
     settings: ApiEndpointConfig;
     getApiUrl(
         service: keyof Omit<ApiConfig, 'host' | 'getApiUrl'>,
@@ -45,11 +46,20 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
             getAll: '',             // GET
         }
     },
-
     calendar: {
         root: '/api/events',
         paths: {
             getAll: '',             // GET
+        }
+    },
+    billing: {
+        root: '/api/billing',
+        paths: {
+            getAll: '',             // GET
+            getById: ':id',         // GET
+            create: '',             // POST
+            update: ':id',          // PUT
+            delete: ':id',          // DELETE
         }
     },
     settings: {
@@ -59,7 +69,6 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
             update: '',             // PUT
         }
     },
-
     getApiUrl(service, action, params) {
         // @ts-ignore
         const endpoint: ApiEndpointConfig = this[service];
@@ -88,7 +97,7 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
             endpoint.host = host;
         }
 
-        return host + endpoint.root + '/' + path;
+        return host + endpoint.root + (path ? '/' + path : '');
     }
 };
 

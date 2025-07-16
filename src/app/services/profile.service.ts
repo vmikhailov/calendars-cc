@@ -90,9 +90,6 @@ export class ProfileService {
     });
 
     public user$ = this.userSubject.asObservable();
-    public billingPlans$ = this.billingPlansSubject.asObservable();
-    public paymentMethods$ = this.paymentMethodsSubject.asObservable();
-    public invoices$ = this.invoicesSubject.asObservable();
     public settings$ = this.settingsSubject.asObservable();
 
     constructor(private authService: AuthService) {
@@ -125,38 +122,9 @@ export class ProfileService {
         }
     }
 
-    changePlan(planId: string): void {
-        const plans = this.billingPlansSubject.value.map(plan => ({
-            ...plan,
-            current: plan.id === planId
-        }));
-        this.billingPlansSubject.next(plans);
-    }
-
     updateSettings(settings: Partial<AppSettings>): void {
         const currentSettings = this.settingsSubject.value;
-        this.settingsSubject.next({...currentSettings, ...settings});
+        this.settingsSubject.next({ ...currentSettings, ...settings });
     }
 
-    addPaymentMethod(method: Omit<PaymentMethod, 'id'>): void {
-        const methods = this.paymentMethodsSubject.value;
-        const newMethod: PaymentMethod = {
-            ...method,
-            id: Date.now().toString()
-        };
-        this.paymentMethodsSubject.next([...methods, newMethod]);
-    }
-
-    removePaymentMethod(methodId: string): void {
-        const methods = this.paymentMethodsSubject.value.filter(m => m.id !== methodId);
-        this.paymentMethodsSubject.next(methods);
-    }
-
-    setDefaultPaymentMethod(methodId: string): void {
-        const methods = this.paymentMethodsSubject.value.map(method => ({
-            ...method,
-            isDefault: method.id === methodId
-        }));
-        this.paymentMethodsSubject.next(methods);
-    }
 }
