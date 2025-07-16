@@ -6,6 +6,7 @@
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
         font-feature-settings: "rlig" 1, "calt" 1;
@@ -13,6 +14,158 @@
 }
 
 @layer components {
+    .login-signup-container {
+        @apply mt-8 pt-6 border-t border-gray-200 text-center;
+    }
+
+    .login-signup-text {
+        @apply text-sm text-gray-600;
+    }
+
+    .login-signup-btn {
+        @apply text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors;
+    }
+
+    .login-error-container {
+        @apply bg-red-50 border border-red-200 rounded-lg p-3;
+    }
+
+    .login-error-flex {
+        @apply flex items-center space-x-2;
+    }
+
+    .login-error-icon {
+        @apply h-4 w-4 text-red-500;
+    }
+
+    .login-error-text {
+        @apply text-sm text-red-700;
+    }
+
+    .login-demo-container {
+        @apply bg-blue-50 border border-blue-200 rounded-lg p-3;
+    }
+
+    .login-demo-flex {
+        @apply flex items-center justify-between;
+    }
+
+    .login-demo-info {
+        @apply flex items-center space-x-2;
+    }
+
+    .login-demo-icon {
+        @apply h-4 w-4 text-blue-500;
+    }
+
+    .login-demo-text {
+        @apply text-sm text-blue-700;
+    }
+
+    .login-demo-btn {
+        @apply text-sm text-blue-600 hover:text-blue-800 font-medium;
+    }
+
+    .login-submit-btn {
+        @apply w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium;
+    }
+
+    .login-submit-flex {
+        @apply flex items-center justify-center space-x-2;
+    }
+
+    .login-loader-icon {
+        @apply h-4 w-4 animate-spin;
+    }
+
+    .login-divider {
+        @apply relative;
+    }
+
+    .login-divider-line {
+        @apply absolute inset-0 flex items-center w-full border-t border-gray-300;
+    }
+
+    .login-divider-text {
+        @apply relative flex justify-center text-sm px-2 bg-white text-gray-500;
+    }
+
+    .login-social-buttons {
+        @apply grid grid-cols-3 gap-3;
+    }
+
+    .login-social-btn {
+        @apply flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 transition-colors;
+    }
+
+    .login-social-icon {
+        @apply w-5 h-5;
+    }
+
+    .login-forgot-container {
+        @apply text-center;
+    }
+
+    .login-forgot-link {
+        @apply text-sm text-blue-600 hover:text-blue-800 transition-colors;
+    }
+
+    .login-signup-container {
+        @apply mt-8 pt-6 border-t border-gray-200 text-center;
+    }
+
+    .login-signup-text {
+        @apply text-sm text-gray-600;
+    }
+
+    .login-signup-btn {
+        @apply text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors;
+    }
+
+    .login-footer {
+        @apply text-center mt-8;
+    }
+
+    .login-footer-text {
+        @apply text-sm text-gray-500;
+    }
+
+    .login-form-container {
+        @apply bg-white rounded-2xl shadow-xl p-8;
+    }
+
+    .login-form {
+        @apply space-y-6;
+    }
+
+    .login-label {
+        @apply block text-sm font-medium text-gray-700 mb-2;
+    }
+
+    .login-input-wrapper {
+        @apply relative;
+    }
+
+    .login-input {
+        @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors;
+    }
+
+    .login-input-password {
+        @apply pr-12;
+    }
+
+    .login-input-icon {
+        @apply absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors;
+    }
+
+    .login-icon {
+        @apply h-5 w-5;
+    }
+
+    .login-password-toggle {
+        @apply absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors;
+    }
+
     .gradient-bg {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
@@ -28,12 +181,35 @@
     .sync-animation {
         animation: spin 2s linear infinite;
     }
+
+    .login-title-section {
+        @apply text-center mb-8;
+    }
+
+    .login-logo-bg {
+        @apply bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl inline-block mb-4;
+    }
+
+    .login-logo-icon {
+        @apply h-8 w-8 text-white;
+    }
+
+    .login-title {
+        @apply text-3xl font-bold text-gray-900 mb-2;
+    }
+
+    .login-subtitle {
+        @apply text-gray-600;
+    }
 }
 
 @keyframes pulse-success {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }

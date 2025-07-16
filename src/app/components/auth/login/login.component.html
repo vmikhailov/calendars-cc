@@ -1,72 +1,67 @@
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
   <div class="max-w-md w-full">
     <!-- Logo and Title -->
-    <div class="text-center mb-8">
-      <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl inline-block mb-4">
-        <lucide-icon name="calendar" class="h-8 w-8 text-white"></lucide-icon>
+    <div class="login-title-section">
+      <div class="login-logo-bg">
+        <lucide-icon name="calendar" class="login-logo-icon"></lucide-icon>
       </div>
       <ng-container *ngIf="!isReturningUser; else returning">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome</h1>
-        <p class="text-gray-600">Sign in to your Calendars.cc account</p>
+        <h1 class="login-title">Welcome</h1>
+        <p class="login-subtitle">Sign in to your Calendars.cc account</p>
       </ng-container>
       <ng-template #returning>
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-        <p class="text-gray-600">Sign in to your Calendars.cc account</p>
+        <h1 class="login-title">Welcome Back</h1>
+        <p class="login-subtitle">Sign in to your Calendars.cc account</p>
       </ng-template>
     </div>
 
     <!-- Login Form -->
-    <div class="bg-white rounded-2xl shadow-xl p-8">
-      <form (ngSubmit)="onSubmit()" class="space-y-6">
+    <div class="login-form-container">
+      <form (ngSubmit)="onSubmit()" class="login-form">
         <!-- Email Field -->
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="email" class="login-label">
             Email Address
           </label>
-          <div class="relative">
-            <input id="email" type="email" [(ngModel)]="credentials.email" name="email" required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+          <div class="login-input-wrapper">
+            <input id="email" type="email" [(ngModel)]="credentials.email" name="email" required class="login-input"
               placeholder="Enter your email" />
-            <div class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors">
-              <lucide-icon name="user" class="h-5 w-5"></lucide-icon>
+            <div class="login-input-icon">
+              <lucide-icon name="user" class="login-icon"></lucide-icon>
             </div>
           </div>
         </div>
 
         <!-- Password Field -->
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="password" class="login-label">
             Password
           </label>
-          <div class="relative">
+          <div class="login-input-wrapper">
             <input id="password" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="credentials.password"
-              name="password" required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors pr-12"
-              placeholder="Enter your password" />
-            <button type="button" (click)="togglePasswordVisibility()"
-              class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 transition-colors">
-              <lucide-icon [name]="showPassword ? 'eye-off' : 'eye'" class="h-5 w-5"></lucide-icon>
+              name="password" required class="login-input login-input-password" placeholder="Enter your password" />
+            <button type="button" (click)="togglePasswordVisibility()" class="login-password-toggle">
+              <lucide-icon [name]="showPassword ? 'eye-off' : 'eye'" class="login-icon"></lucide-icon>
             </button>
           </div>
         </div>
 
         <!-- Error Message -->
-        <div *ngIf="error" class="bg-red-50 border border-red-200 rounded-lg p-3">
-          <div class="flex items-center space-x-2">
-            <lucide-icon name="alert-circle" class="h-4 w-4 text-red-500"></lucide-icon>
-            <span class="text-sm text-red-700">{{ error }}</span>
+        <div *ngIf="error" class="login-error-container">
+          <div class="login-error-flex">
+            <lucide-icon name="alert-circle" class="login-error-icon"></lucide-icon>
+            <span class="login-error-text">{{ error }}</span>
           </div>
         </div>
 
         <!-- Demo Credentials Helper -->
-        <div *ngIf="!isReturningUser" class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <lucide-icon name="info" class="h-4 w-4 text-blue-500"></lucide-icon>
-              <span class="text-sm text-blue-700">Demo Account Available</span>
+        <div *ngIf="!isReturningUser" class="login-demo-container">
+          <div class="login-demo-flex">
+            <div class="login-demo-info">
+              <lucide-icon name="info" class="login-demo-icon"></lucide-icon>
+              <span class="login-demo-text">Demo Account Available</span>
             </div>
-            <button type="button" (click)="fillDemoCredentials()"
-              class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+            <button type="button" (click)="fillDemoCredentials()" class="login-demo-btn">
               Use Demo
             </button>
           </div>
@@ -74,9 +69,9 @@
 
         <!-- Submit Button -->
         <button type="submit" [disabled]="loading || !credentials.email || !credentials.password"
-          class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium">
-          <div *ngIf="loading" class="flex items-center justify-center space-x-2">
-            <lucide-icon name="loader" class="h-4 w-4 animate-spin"></lucide-icon>
+          class="login-submit-btn">
+          <div *ngIf="loading" class="login-submit-flex">
+            <lucide-icon name="loader" class="login-loader-icon"></lucide-icon>
             <span>Signing In...</span>
           </div>
           <span *ngIf="!loading">Sign In</span>
@@ -93,10 +88,9 @@
         </div>
 
         <!-- Social Login Buttons -->
-        <div class="grid grid-cols-3 gap-3">
-          <button type="button" (click)="loginWithGoogle()"
-            class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 transition-colors">
-            <svg class="w-5 h-5" viewBox="0 0 24 24">
+        <div class="login-social-buttons">
+          <button type="button" (click)="loginWithGoogle()" class="login-social-btn">
+            <svg class="login-social-icon" viewBox="0 0 24 24">
               <path fill="#4285F4"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
               <path fill="#34A853"
@@ -108,9 +102,8 @@
             </svg>
           </button>
 
-          <button type="button" (click)="loginWithMicrosoft()"
-            class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 transition-colors">
-            <svg class="w-5 h-5" viewBox="0 0 24 24">
+          <button type="button" (click)="loginWithMicrosoft()" class="login-social-btn">
+            <svg class="login-social-icon" viewBox="0 0 24 24">
               <path fill="#F25022" d="M1 1h10v10H1z" />
               <path fill="#00A4EF" d="M13 1h10v10H13z" />
               <path fill="#7FBA00" d="M1 13h10v10H1z" />
@@ -118,28 +111,26 @@
             </svg>
           </button>
 
-          <button type="button" (click)="loginWithGitHub()"
-            class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 transition-colors">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <button type="button" (click)="loginWithGitHub()" class="login-social-btn">
+            <svg class="login-social-icon" viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
             </svg>
           </button>
         </div>
         <!-- Forgot Password Link -->
-        <div class="text-center">
-          <a href="#" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+        <div class="login-forgot-container">
+          <a href="#" class="login-forgot-link">
             Forgot your password?
           </a>
         </div>
       </form>
 
       <!-- Sign Up Link -->
-      <div class="mt-8 pt-6 border-t border-gray-200 text-center">
-        <p class="text-sm text-gray-600">
+      <div class="login-signup-container">
+        <p class="login-signup-text">
           Don't have an account?
-          <button (click)="navigateToSignup()"
-            class="text-blue-600 hover:text-blue-800 font-medium ml-1 transition-colors">
+          <button (click)="navigateToSignup()" class="login-signup-btn">
             Sign up for free
           </button>
         </p>
@@ -147,10 +138,8 @@
     </div>
 
     <!-- Footer -->
-    <div class="text-center mt-8">
-      <p class="text-sm text-gray-500">
-        © 2025 Calendars.cc. All rights reserved.
-      </p>
+    <div class="login-footer">
+      <span class="login-footer-text">© 2025 Calendars.cc. All rights reserved.</span>
     </div>
   </div>
 </div>
