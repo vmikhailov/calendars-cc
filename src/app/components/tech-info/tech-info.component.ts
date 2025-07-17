@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { versionInfo } from '../../../version-info';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,7 +10,8 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./tech-info.component.css']
 })
 export class TechInfoComponent {
-    nodeVersion = 'v22.17.0';
-    npmVersion = '10.9.2';
-    angularVersion = '19.2.14';
+    nodeVersion: string = versionInfo.node;
+    npmVersion: string = versionInfo.npm;
+    angularVersion: string = versionInfo.angular;
+    deployedAt: string = versionInfo.deployedAt;
 }

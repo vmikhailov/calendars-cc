@@ -8,11 +8,13 @@ NGINX_CONF=/etc/nginx/sites-available/calendars
 
 set -e
 
-# Nginx config
-cp deployment/nginx.conf $NGINX_CONF
-
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/calendars
 sudo nginx -t
 sudo systemctl reload nginx
+
+# Generate version info (in case config is used for local/test deploys)
+node scripts/generate-version-info.js
+
+echo "Version info generated."
 
 echo "Nginx configured."

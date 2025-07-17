@@ -28,9 +28,13 @@ fi
 
 echo "deploy.sh is the same, continuing..."
 
+
 # Install dependencies
 npm ci
 #npm audit fix --force
+
+# Generate version info
+node scripts/generate-version-info.js
 
 # Build Angular app
 ng build --configuration production
